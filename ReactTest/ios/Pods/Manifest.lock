@@ -1,0 +1,16 @@
+PODS:
+  - AirbitzCore (0.11.0)
+
+DEPENDENCIES:
+  - AirbitzCore (from `../../../airbitz-core-objc/`)
+
+EXTERNAL SOURCES:
+  AirbitzCore:
+    :path: "../../../airbitz-core-objc/"
+
+SPEC CHECKSUMS:
+  AirbitzCore: 44a6948a1caeca8b2b7040d39596fd1b2003ae44
+
+PODFILE CHECKSUM: cb1baf70d780334d0f85fa8b333200d39f2a3663
+
+COCOAPODS: 1.0.0

@@ -1,0 +1,10 @@
+CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR/AirbitzCore
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/AirbitzCore" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AirbitzCore"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/../../../../airbitz-core-objc/Libraries"
+OTHER_LDFLAGS = -l"abc" -l"bitcoin" -l"boost_atomic" -l"boost_chrono" -l"boost_date_time" -l"boost_filesystem" -l"boost_program_options" -l"boost_regex" -l"boost_system" -l"boost_thread" -l"c++" -l"crypto" -l"csv" -l"curl" -l"git2" -l"iconv" -l"jansson" -l"protobuf-lite" -l"qrencode" -l"secp256k1" -l"sodium" -l"ssl" -l"z" -l"zmq"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
+SKIP_INSTALL = YES

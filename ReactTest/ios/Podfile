@@ -1,0 +1,5 @@
+
+target "ReactTest" do
+#   pod 'AirbitzCore', :http => "https://developer.airbitz.co/download/airbitz-core-objc-newest.tgz"
+    pod 'AirbitzCore', :path => '../../../airbitz-core-objc/'
+end

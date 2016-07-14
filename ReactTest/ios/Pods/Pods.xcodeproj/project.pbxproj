@@ -1,0 +1,778 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		065C0DCE728C8F0DEA5C1052D4E43D04 /* ABCKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F9E4237A386834558641618C6B3647 /* ABCKeychain.m */; };
+		0CC3C3773DBABBC8EBE5332E17EA11C5 /* ABCAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CA62B9475439718E5E9E819A266EB7 /* ABCAccount.m */; };
+		13C1C57AE77F22DD5712DFF32AC5B8C4 /* ABCError.h in Headers */ = {isa = PBXBuildFile; fileRef = AC76BD183A45270E65A92FD488A14880 /* ABCError.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		14442FD085DE2B06B7454287558DC893 /* ABCExchangeCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D0FEB065FA7BD0E68E29D1373E3100B /* ABCExchangeCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1623421648FC66AD4465C399194D4A96 /* ABCAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DDD912278A6DD53C7A401572F98E629 /* ABCAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1892FE70DC1D4144AA19BC399AEB8771 /* ABCSettings+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 018EC3B639FB9AB0B3FC664FBAB0DB02 /* ABCSettings+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1B5EF277D297146ABFA2681CEB47DB17 /* ABCConditionCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 78B4D0068626C05922DDD8113CB4F7E2 /* ABCConditionCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E65A068CB0DDEE0B5C99AA62EF21F41 /* ABCStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B1D09608FDBEA81E699E1BD33AC9B /* ABCStrings.m */; };
+		250BFDEB0E0E75BF46BA0FBEA2DE5971 /* ABCSpend.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A87C8F8DA67DC18D24593C99AF59EE6 /* ABCSpend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2943DB8E453EBAFB512F29A78B3A77FB /* ABCParsedURI.m in Sources */ = {isa = PBXBuildFile; fileRef = C33A70E1E5807FEBD187C2DE6A089D35 /* ABCParsedURI.m */; };
+		2A194FA6C41604A58FD661AF67F55D25 /* AirbitzCore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = EA9A9C38A0E0F055372F7A3AD4F03DD6 /* AirbitzCore+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2CD3F24707AC18FE7E4A31BFFBC16B44 /* ABCTxInOut.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B369924E4A3591E85B72B415C5E982 /* ABCTxInOut.m */; };
+		2DC26DF67EBB259E3305282624DFCC9E /* ABCCategories+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 96675B4ABABF0FF299D19AC734DA252A /* ABCCategories+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2E214A115502FFE58AF87889EC66DC9C /* ABCDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 95232BAF70D93F5006D78A24DBD57E6F /* ABCDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30416C3700F65B8647125723D2C88D5F /* ABCReceiveAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = CB5ADA3617CD95AFD78660713A5DB809 /* ABCReceiveAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		342973419837E1CC2ED3D14A0DBE7C95 /* ABCMetaData+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = C1F93E29E7C13D9811860A7AD1D91037 /* ABCMetaData+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3A0A7A1DADF2CAB862522666720CE9F7 /* ABCTxInOut.h in Headers */ = {isa = PBXBuildFile; fileRef = A3A938CD1FABC24581B323D6D41C45D8 /* ABCTxInOut.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B328883E7ED95D519F88F0E835B31C5 /* ABCLocalSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F56D120768A62F5AD50BD25EFA40D85 /* ABCLocalSettings.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		440919083814BEA70AEB37323F57EEDA /* Pods-ReactTest-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4146C162CEDFB2F61CC3FDA2A45DB9 /* Pods-ReactTest-dummy.m */; };
+		4413C7F3D2D11766DB75FFF575114585 /* ABCKeychain+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F23F032CB4E8DB1B9917298F271B27F8 /* ABCKeychain+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		47749EC3DAF264D313384B764BF0E9A6 /* ABCDataStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A964679289188CB086F923C0663E22 /* ABCDataStore+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4BB2F32E10254D72C03F36A35BEEEFF1 /* ABCWallet.h in Headers */ = {isa = PBXBuildFile; fileRef = 348D1C3989F66012BB2140AB90E5DF2D /* ABCWallet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E916E737F4EF1FAC9816E153D7A05C0 /* ABCTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5428611B0F46061459C394A8F2D50FBD /* ABCTransaction.m */; };
+		529E7BDF585F7F54AD99C5EAF001C374 /* AirbitzCore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B80AF1B6F3789135370B89A147920067 /* AirbitzCore-dummy.m */; };
+		5770728CDEA85CCE59FBE3360648B125 /* ABCDenomination.m in Sources */ = {isa = PBXBuildFile; fileRef = 1399C191830F499DD70E148B9E3281BD /* ABCDenomination.m */; };
+		5F6C1A458ACA109B3E739A8301265F31 /* ABCCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B42DF3AE065E8FED5B06F8457A3A3B /* ABCCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60F56E0648D91892049A468CCC72DA13 /* NSMutableData+Secure.h in Headers */ = {isa = PBXBuildFile; fileRef = 7218C07B23D2B610C42015E1C3CEAC6D /* NSMutableData+Secure.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		65251478AEC594B54BEB65A14057B25D /* ABC.h in Headers */ = {isa = PBXBuildFile; fileRef = 72BD93FC6E2B2980751C6DFFEFCB7651 /* ABC.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		65BD49F77BBA189C0C1338E5A0E6EDDF /* ABCWallet+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F69CA2ED84E084E481A9AF6E0A39F3D /* ABCWallet+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6709AEED6C9AED44A6F914086C4925C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		6734B702055C9EBA9ACF73829929CA33 /* ABCCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 201A4130EAD6A9F8619E5DDA5B919628 /* ABCCategories.m */; };
+		6D5A99C43E3178DFE654CF0855D5F263 /* ABCSpend+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BE7482895D6525AE9881B568020016D /* ABCSpend+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6DD44007CCD4999E2A14A0B06F4B20E6 /* ABCSpend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7703F8F8B460426F991C91C1E62DFEF1 /* ABCSpend.m */; };
+		6FFE7C2ACE22649CA20F3530E91464DF /* ABCSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BAAA80F23B7229768F1624BBA7309D9 /* ABCSettings.m */; };
+		716040E0C2895257B39CDBE56D5AEBD1 /* ABCLocalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E52990E12174B4DC6A3AC4CC42926C65 /* ABCLocalSettings.m */; };
+		73B1F3D8A51D3F8E26980110E8E9324D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		76FAF021FC392FDA0315EC05685DB5CE /* ABCCurrency.h in Headers */ = {isa = PBXBuildFile; fileRef = 10B93A7AC137F0F2616175B57C566B6E /* ABCCurrency.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		78CFD3B2E0E2AD3C6605DD184C65A3E2 /* ABCDenomination.h in Headers */ = {isa = PBXBuildFile; fileRef = 479D1A0B6D8D91C6D8BA5A4041CA3EF0 /* ABCDenomination.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		80D9BCDBB4CCC65CBAD68FA387C77C49 /* ABCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 100BD63F80A8299193727AC03E6DE0E7 /* ABCUtil.m */; };
+		81C63CBE9B6843118E954BFF3205D38B /* ABCReceiveAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = EF969C330A55B93649ED3649B1BE51A5 /* ABCReceiveAddress.m */; };
+		8276B88F764AF7768159CB802808939D /* ABCTransaction+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C1CD268D4D839A794813A967E8B004 /* ABCTransaction+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		831B1815955A9C9492417B7F6E8F3EFE /* ABCUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 4442E7D15F3C186C358FABFEAF1178AA /* ABCUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A298A642951C5A8CA4FA9C0BCABADF98 /* ABCParsedURI.h in Headers */ = {isa = PBXBuildFile; fileRef = 84BC1E0E0436D95668BEF1A0033C47BF /* ABCParsedURI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B2D442BADA7B9C8533C9FAEA278F60D5 /* AirbitzCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F3E4E23D6A6FEFE62B14F549259EF613 /* AirbitzCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3813BE0F7EDF2EAC45B0B16237FAB28 /* AirbitzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF6D65FF0BC21FE640CB9B49C45CFFB /* AirbitzCore.m */; };
+		BAB27031C14C63EDFE8458FB9DF09BEF /* ABCMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = FDAFE970837B1DA67C81DEAA8A980194 /* ABCMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCF2AC96F1FB89C7AA94790A2099AEDD /* ABCTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 89E673B4256CFF328D5A4D2EC3506994 /* ABCTransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BDDC196455292C01453541684469364E /* ABCCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D332E27724FFDAD71E2E5CE92B92D50 /* ABCCurrency.m */; };
+		C680FD8B7F9601BF02FDEA52D454ED5A /* ABCKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 06391ABA6C5C256432554B11569812CC /* ABCKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CBD07DAC2C8EC74E1770F7B4EACA64F1 /* ABCAccount+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 18B476D0D5B0456EE8DB7FEFA611A335 /* ABCAccount+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D71F76BA24ECF1EFAAA3DD0FCAA8791C /* ABCReceiveAddress+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = EC98867A9BD6B5098B73AD3DB57C4985 /* ABCReceiveAddress+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D7AF3E6EC52360D069DD9927BBA74B17 /* ABCSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C232895FDCF50E380B2137575A22872E /* ABCSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBEBD0AF818B9E5C9498C1320340FFD5 /* ABCExchangeCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B512F6C731F74454EDE084384497E85 /* ABCExchangeCache+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E56D0930E13A8FA4ACAA3FAF5AE89ABF /* ABCError.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF2C1551DEC920B1E553B050E2739C /* ABCError.m */; };
+		E962FB9D742804BE4F81F7B79521001D /* ABCMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D3A0C7B93B4CDED18DA888AF9BA704 /* ABCMetaData.m */; };
+		EB0A1095EDB4E9507264E507976E04F8 /* ABCCurrency+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F704061BB79CFE14EB801E16F8FA304E /* ABCCurrency+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EC63641EF0D240601A2CA99296987F97 /* ABCDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B4DA6482237BEC00155AC32C1FA0E8A4 /* ABCDataStore.m */; };
+		EE365FB4C2BB324CB2B0DB758A82419B /* ABCParsedURI+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED7819325240EE3EF15D428CA375CB2 /* ABCParsedURI+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F3679F78A2F5E5B9A101ADEC61E57E52 /* ABCStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B22131F9F5DB7C9A840E51B522F11A /* ABCStrings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7F0BFBC837A46910C77F04116919CAA /* ABCExchangeCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D63058D8EE67F8A34BB619D3C81D78 /* ABCExchangeCache.m */; };
+		F83C5F60C20A8D102BC626EE158B9606 /* NSMutableData+Secure.m in Sources */ = {isa = PBXBuildFile; fileRef = DD223062F931DD1FB09DEAA145164280 /* NSMutableData+Secure.m */; };
+		F9FC8F57973A62D69F2845160DC27DA0 /* ABCWallet.m in Sources */ = {isa = PBXBuildFile; fileRef = 288A35C835D28A2750564C9C4D4C6000 /* ABCWallet.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		77AD8C96827DC523BF5BC291D8D305AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EDC483C74E5ED0FA73CD244D2364D98;
+			remoteInfo = AirbitzCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		003FBFB39BC05AFC51607FB23FC920A3 /* libzmq.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libzmq.a; path = Libraries/libzmq.a; sourceTree = "<group>"; };
+		018EC3B639FB9AB0B3FC664FBAB0DB02 /* ABCSettings+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCSettings+Internal.h"; sourceTree = "<group>"; };
+		04A3251746A029430FF08E8C6F46F778 /* Pods-ReactTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReactTest.release.xcconfig"; sourceTree = "<group>"; };
+		0626364244810A410658D89E5160992C /* libqrencode.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libqrencode.a; path = Libraries/libqrencode.a; sourceTree = "<group>"; };
+		06391ABA6C5C256432554B11569812CC /* ABCKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCKeychain.h; sourceTree = "<group>"; };
+		0B7207E37CDBD79FA3978A1E8B85074E /* libboost_date_time.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_date_time.a; path = Libraries/libboost_date_time.a; sourceTree = "<group>"; };
+		0BAAA80F23B7229768F1624BBA7309D9 /* ABCSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCSettings.m; sourceTree = "<group>"; };
+		0F56D120768A62F5AD50BD25EFA40D85 /* ABCLocalSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCLocalSettings.h; sourceTree = "<group>"; };
+		100BD63F80A8299193727AC03E6DE0E7 /* ABCUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCUtil.m; sourceTree = "<group>"; };
+		10B93A7AC137F0F2616175B57C566B6E /* ABCCurrency.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCCurrency.h; sourceTree = "<group>"; };
+		10C35871A547D589BEDC6190A533F0FC /* libgit2.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libgit2.a; path = Libraries/libgit2.a; sourceTree = "<group>"; };
+		1276D45F7951CB912DEA6BBE59BB5E3E /* Pods-ReactTest-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReactTest-acknowledgements.plist"; sourceTree = "<group>"; };
+		1399C191830F499DD70E148B9E3281BD /* ABCDenomination.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCDenomination.m; sourceTree = "<group>"; };
+		18B1AA3399C835BD80B366A5D821AD9C /* AirbitzCore-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AirbitzCore-prefix.pch"; sourceTree = "<group>"; };
+		18B476D0D5B0456EE8DB7FEFA611A335 /* ABCAccount+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCAccount+Internal.h"; sourceTree = "<group>"; };
+		19D175FBAF6144EFE0E0C9343DB7B869 /* libjansson.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libjansson.a; path = Libraries/libjansson.a; sourceTree = "<group>"; };
+		1AEF2C1551DEC920B1E553B050E2739C /* ABCError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCError.m; sourceTree = "<group>"; };
+		1E6352E90911DE54B3AC915341B4BC80 /* libboost_chrono.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_chrono.a; path = Libraries/libboost_chrono.a; sourceTree = "<group>"; };
+		1ED7819325240EE3EF15D428CA375CB2 /* ABCParsedURI+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCParsedURI+Internal.h"; sourceTree = "<group>"; };
+		201A4130EAD6A9F8619E5DDA5B919628 /* ABCCategories.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCCategories.m; sourceTree = "<group>"; };
+		25A964679289188CB086F923C0663E22 /* ABCDataStore+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCDataStore+Internal.h"; sourceTree = "<group>"; };
+		2764442ED797901E78761A20C2DBE306 /* libbitcoin.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libbitcoin.a; path = Libraries/libbitcoin.a; sourceTree = "<group>"; };
+		27F9E4237A386834558641618C6B3647 /* ABCKeychain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCKeychain.m; sourceTree = "<group>"; };
+		288A35C835D28A2750564C9C4D4C6000 /* ABCWallet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCWallet.m; sourceTree = "<group>"; };
+		2FC6AACFDBE9BB28A6FB1C07AF3ABCCE /* libAirbitzCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAirbitzCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		348D1C3989F66012BB2140AB90E5DF2D /* ABCWallet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCWallet.h; sourceTree = "<group>"; };
+		395B88D68011F4735237496363D63EA4 /* Pods-ReactTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReactTest.debug.xcconfig"; sourceTree = "<group>"; };
+		3BE7482895D6525AE9881B568020016D /* ABCSpend+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCSpend+Internal.h"; sourceTree = "<group>"; };
+		4185E6F5A4B54C94A66D0011D321A40C /* libboost_system.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_system.a; path = Libraries/libboost_system.a; sourceTree = "<group>"; };
+		41B22131F9F5DB7C9A840E51B522F11A /* ABCStrings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCStrings.h; sourceTree = "<group>"; };
+		4442E7D15F3C186C358FABFEAF1178AA /* ABCUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCUtil.h; sourceTree = "<group>"; };
+		44D3A0C7B93B4CDED18DA888AF9BA704 /* ABCMetaData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCMetaData.m; sourceTree = "<group>"; };
+		479D1A0B6D8D91C6D8BA5A4041CA3EF0 /* ABCDenomination.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCDenomination.h; sourceTree = "<group>"; };
+		4C1B1D09608FDBEA81E699E1BD33AC9B /* ABCStrings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCStrings.m; sourceTree = "<group>"; };
+		52B2CCE2EA327158860ED3902D6A5D98 /* ca-certificates.crt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "ca-certificates.crt"; sourceTree = "<group>"; };
+		5428611B0F46061459C394A8F2D50FBD /* ABCTransaction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCTransaction.m; sourceTree = "<group>"; };
+		55FC8A9F06F67DF63CFFA88C67F034CF /* libcurl.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcurl.a; path = Libraries/libcurl.a; sourceTree = "<group>"; };
+		575F4E98A1DD80DDFE178D7BC6C27499 /* libboost_program_options.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_program_options.a; path = Libraries/libboost_program_options.a; sourceTree = "<group>"; };
+		5DDD912278A6DD53C7A401572F98E629 /* ABCAccount.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCAccount.h; sourceTree = "<group>"; };
+		5E284AA4F460AA21E54C7796B5F36D6C /* libPods-ReactTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E9D43143A240B3B03244A1631207C40 /* api.cer */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = api.cer; sourceTree = "<group>"; };
+		63C1CD268D4D839A794813A967E8B004 /* ABCTransaction+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCTransaction+Internal.h"; sourceTree = "<group>"; };
+		65CA0A00D5AC1065730E177A61988093 /* libsodium.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libsodium.a; path = Libraries/libsodium.a; sourceTree = "<group>"; };
+		6B512F6C731F74454EDE084384497E85 /* ABCExchangeCache+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCExchangeCache+Internal.h"; sourceTree = "<group>"; };
+		7218C07B23D2B610C42015E1C3CEAC6D /* NSMutableData+Secure.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+Secure.h"; sourceTree = "<group>"; };
+		72BD93FC6E2B2980751C6DFFEFCB7651 /* ABC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABC.h; sourceTree = "<group>"; };
+		75B7DEA2724EC8CA5C22451CD5B6506C /* AirbitzCore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AirbitzCore.xcconfig; sourceTree = "<group>"; };
+		7703F8F8B460426F991C91C1E62DFEF1 /* ABCSpend.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCSpend.m; sourceTree = "<group>"; };
+		78B4D0068626C05922DDD8113CB4F7E2 /* ABCConditionCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCConditionCode.h; sourceTree = "<group>"; };
+		7A87C8F8DA67DC18D24593C99AF59EE6 /* ABCSpend.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCSpend.h; sourceTree = "<group>"; };
+		84BC1E0E0436D95668BEF1A0033C47BF /* ABCParsedURI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCParsedURI.h; sourceTree = "<group>"; };
+		89D63058D8EE67F8A34BB619D3C81D78 /* ABCExchangeCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCExchangeCache.m; sourceTree = "<group>"; };
+		89E673B4256CFF328D5A4D2EC3506994 /* ABCTransaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCTransaction.h; sourceTree = "<group>"; };
+		8D0FEB065FA7BD0E68E29D1373E3100B /* ABCExchangeCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCExchangeCache.h; sourceTree = "<group>"; };
+		8D332E27724FFDAD71E2E5CE92B92D50 /* ABCCurrency.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCCurrency.m; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		948F53D63EB63381435AD6B5C66BAFA9 /* libboost_filesystem.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = Libraries/libboost_filesystem.a; sourceTree = "<group>"; };
+		95232BAF70D93F5006D78A24DBD57E6F /* ABCDataStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCDataStore.h; sourceTree = "<group>"; };
+		96486403078CEFB1C32D1D7F1EA86E34 /* Pods-ReactTest-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ReactTest-resources.sh"; sourceTree = "<group>"; };
+		96675B4ABABF0FF299D19AC734DA252A /* ABCCategories+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCCategories+Internal.h"; sourceTree = "<group>"; };
+		9F69CA2ED84E084E481A9AF6E0A39F3D /* ABCWallet+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCWallet+Internal.h"; sourceTree = "<group>"; };
+		A0F5C5C071E6D6765D3F40C28503BE1F /* libboost_thread.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_thread.a; path = Libraries/libboost_thread.a; sourceTree = "<group>"; };
+		A2CA62B9475439718E5E9E819A266EB7 /* ABCAccount.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCAccount.m; sourceTree = "<group>"; };
+		A3A938CD1FABC24581B323D6D41C45D8 /* ABCTxInOut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCTxInOut.h; sourceTree = "<group>"; };
+		A9B42DF3AE065E8FED5B06F8457A3A3B /* ABCCategories.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCCategories.h; sourceTree = "<group>"; };
+		AC76BD183A45270E65A92FD488A14880 /* ABCError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCError.h; sourceTree = "<group>"; };
+		B4DA6482237BEC00155AC32C1FA0E8A4 /* ABCDataStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCDataStore.m; sourceTree = "<group>"; };
+		B80AF1B6F3789135370B89A147920067 /* AirbitzCore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AirbitzCore-dummy.m"; sourceTree = "<group>"; };
+		B8CE6811224119173FD632C873FE6895 /* libboost_atomic.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_atomic.a; path = Libraries/libboost_atomic.a; sourceTree = "<group>"; };
+		BA037EBEC62F5C55518D5FC3563B08A3 /* libboost_regex.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libboost_regex.a; path = Libraries/libboost_regex.a; sourceTree = "<group>"; };
+		BB1F408DE86C64C5C157CD75DE34C17A /* libsecp256k1.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libsecp256k1.a; path = Libraries/libsecp256k1.a; sourceTree = "<group>"; };
+		C1F93E29E7C13D9811860A7AD1D91037 /* ABCMetaData+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCMetaData+Internal.h"; sourceTree = "<group>"; };
+		C232895FDCF50E380B2137575A22872E /* ABCSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCSettings.h; sourceTree = "<group>"; };
+		C33A70E1E5807FEBD187C2DE6A089D35 /* ABCParsedURI.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCParsedURI.m; sourceTree = "<group>"; };
+		CB5ADA3617CD95AFD78660713A5DB809 /* ABCReceiveAddress.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCReceiveAddress.h; sourceTree = "<group>"; };
+		CC1E9788A006526C410B0B9C8A33C050 /* libz.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libz.a; path = Libraries/libz.a; sourceTree = "<group>"; };
+		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D2FD19BDDAA3A4C742B6F99364C84F46 /* libcsv.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcsv.a; path = Libraries/libcsv.a; sourceTree = "<group>"; };
+		D4B369924E4A3591E85B72B415C5E982 /* ABCTxInOut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCTxInOut.m; sourceTree = "<group>"; };
+		DAF6D65FF0BC21FE640CB9B49C45CFFB /* AirbitzCore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AirbitzCore.m; sourceTree = "<group>"; };
+		DD223062F931DD1FB09DEAA145164280 /* NSMutableData+Secure.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+Secure.m"; sourceTree = "<group>"; };
+		E0340B4032B28D7CAC83773C16AAB389 /* Pods-ReactTest-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ReactTest-frameworks.sh"; sourceTree = "<group>"; };
+		E045C756C0E07E9945C6CB40D498D5D8 /* libabc.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libabc.a; path = Libraries/libabc.a; sourceTree = "<group>"; };
+		E52990E12174B4DC6A3AC4CC42926C65 /* ABCLocalSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCLocalSettings.m; sourceTree = "<group>"; };
+		E612246CFAAE657C744A221D1A33AE61 /* Pods-ReactTest-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ReactTest-acknowledgements.markdown"; sourceTree = "<group>"; };
+		EA4146C162CEDFB2F61CC3FDA2A45DB9 /* Pods-ReactTest-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ReactTest-dummy.m"; sourceTree = "<group>"; };
+		EA9A9C38A0E0F055372F7A3AD4F03DD6 /* AirbitzCore+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AirbitzCore+Internal.h"; sourceTree = "<group>"; };
+		EC98867A9BD6B5098B73AD3DB57C4985 /* ABCReceiveAddress+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCReceiveAddress+Internal.h"; sourceTree = "<group>"; };
+		EEC46F5C25113F1A7FF00BCC84DA9E41 /* libprotobuf-lite.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "Libraries/libprotobuf-lite.a"; sourceTree = "<group>"; };
+		EF969C330A55B93649ED3649B1BE51A5 /* ABCReceiveAddress.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABCReceiveAddress.m; sourceTree = "<group>"; };
+		EFA3A5DA563722BBFAC6AFF104E91659 /* libssl.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libssl.a; path = Libraries/libssl.a; sourceTree = "<group>"; };
+		F23F032CB4E8DB1B9917298F271B27F8 /* ABCKeychain+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCKeychain+Internal.h"; sourceTree = "<group>"; };
+		F363BF955E87544E45C465DE94A1642F /* libcrypto.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcrypto.a; path = Libraries/libcrypto.a; sourceTree = "<group>"; };
+		F3E4E23D6A6FEFE62B14F549259EF613 /* AirbitzCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AirbitzCore.h; sourceTree = "<group>"; };
+		F704061BB79CFE14EB801E16F8FA304E /* ABCCurrency+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABCCurrency+Internal.h"; sourceTree = "<group>"; };
+		FDAFE970837B1DA67C81DEAA8A980194 /* ABCMetadata.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABCMetadata.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5380D942892C9E5B39227E1DC5BC0E78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73B1F3D8A51D3F8E26980110E8E9324D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C8BC877483A3A8CAB98BD082EFC5A34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6709AEED6C9AED44A6F914086C4925C8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06F4DAB80ECAC76220C0FC987FF41CC7 /* Pods-ReactTest */ = {
+			isa = PBXGroup;
+			children = (
+				E612246CFAAE657C744A221D1A33AE61 /* Pods-ReactTest-acknowledgements.markdown */,
+				1276D45F7951CB912DEA6BBE59BB5E3E /* Pods-ReactTest-acknowledgements.plist */,
+				EA4146C162CEDFB2F61CC3FDA2A45DB9 /* Pods-ReactTest-dummy.m */,
+				E0340B4032B28D7CAC83773C16AAB389 /* Pods-ReactTest-frameworks.sh */,
+				96486403078CEFB1C32D1D7F1EA86E34 /* Pods-ReactTest-resources.sh */,
+				395B88D68011F4735237496363D63EA4 /* Pods-ReactTest.debug.xcconfig */,
+				04A3251746A029430FF08E8C6F46F778 /* Pods-ReactTest.release.xcconfig */,
+			);
+			name = "Pods-ReactTest";
+			path = "Target Support Files/Pods-ReactTest";
+			sourceTree = "<group>";
+		};
+		1097559BBB591E9898E50B06BD73DE85 /* AirbitzCore */ = {
+			isa = PBXGroup;
+			children = (
+				162BD023535D731869863A2C409E4815 /* Classes */,
+				3F4ABB9B65DB1CB623CE963F5DBF07DB /* Frameworks */,
+				11B7E92D21DE3B568BD9D14D11A44204 /* Resources */,
+				198AFCAA0DDE126D3EEFB9CCA6BC4B4F /* Support Files */,
+			);
+			name = AirbitzCore;
+			path = "../../../../airbitz-core-objc";
+			sourceTree = "<group>";
+		};
+		11B7E92D21DE3B568BD9D14D11A44204 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5DDACE3C196C86CF60930E6DF0DAF7D3 /* Resources */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		162BD023535D731869863A2C409E4815 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C6487496AB9EF49B626B97CD1F9E1F6C /* Private */,
+				C7F7A17B349137144509C35E9E4900B6 /* Public */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		198AFCAA0DDE126D3EEFB9CCA6BC4B4F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				75B7DEA2724EC8CA5C22451CD5B6506C /* AirbitzCore.xcconfig */,
+				B80AF1B6F3789135370B89A147920067 /* AirbitzCore-dummy.m */,
+				18B1AA3399C835BD80B366A5D821AD9C /* AirbitzCore-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../airbitz-react-test/ReactTest/ios/Pods/Target Support Files/AirbitzCore";
+			sourceTree = "<group>";
+		};
+		2776599BD7E8D457A81FB187DC0FF80F /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				06F4DAB80ECAC76220C0FC987FF41CC7 /* Pods-ReactTest */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		3F4ABB9B65DB1CB623CE963F5DBF07DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E045C756C0E07E9945C6CB40D498D5D8 /* libabc.a */,
+				2764442ED797901E78761A20C2DBE306 /* libbitcoin.a */,
+				B8CE6811224119173FD632C873FE6895 /* libboost_atomic.a */,
+				1E6352E90911DE54B3AC915341B4BC80 /* libboost_chrono.a */,
+				0B7207E37CDBD79FA3978A1E8B85074E /* libboost_date_time.a */,
+				948F53D63EB63381435AD6B5C66BAFA9 /* libboost_filesystem.a */,
+				575F4E98A1DD80DDFE178D7BC6C27499 /* libboost_program_options.a */,
+				BA037EBEC62F5C55518D5FC3563B08A3 /* libboost_regex.a */,
+				4185E6F5A4B54C94A66D0011D321A40C /* libboost_system.a */,
+				A0F5C5C071E6D6765D3F40C28503BE1F /* libboost_thread.a */,
+				F363BF955E87544E45C465DE94A1642F /* libcrypto.a */,
+				D2FD19BDDAA3A4C742B6F99364C84F46 /* libcsv.a */,
+				55FC8A9F06F67DF63CFFA88C67F034CF /* libcurl.a */,
+				10C35871A547D589BEDC6190A533F0FC /* libgit2.a */,
+				19D175FBAF6144EFE0E0C9343DB7B869 /* libjansson.a */,
+				EEC46F5C25113F1A7FF00BCC84DA9E41 /* libprotobuf-lite.a */,
+				0626364244810A410658D89E5160992C /* libqrencode.a */,
+				BB1F408DE86C64C5C157CD75DE34C17A /* libsecp256k1.a */,
+				65CA0A00D5AC1065730E177A61988093 /* libsodium.a */,
+				EFA3A5DA563722BBFAC6AFF104E91659 /* libssl.a */,
+				CC1E9788A006526C410B0B9C8A33C050 /* libz.a */,
+				003FBFB39BC05AFC51607FB23FC920A3 /* libzmq.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5DDACE3C196C86CF60930E6DF0DAF7D3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5E9D43143A240B3B03244A1631207C40 /* api.cer */,
+				52B2CCE2EA327158860ED3902D6A5D98 /* ca-certificates.crt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				C9FC98077ACE3E1AFE538188A40854CE /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				B244DD8510853CA87254297ECB2D03D8 /* Products */,
+				2776599BD7E8D457A81FB187DC0FF80F /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		B244DD8510853CA87254297ECB2D03D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FC6AACFDBE9BB28A6FB1C07AF3ABCCE /* libAirbitzCore.a */,
+				5E284AA4F460AA21E54C7796B5F36D6C /* libPods-ReactTest.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6487496AB9EF49B626B97CD1F9E1F6C /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				72BD93FC6E2B2980751C6DFFEFCB7651 /* ABC.h */,
+				A2CA62B9475439718E5E9E819A266EB7 /* ABCAccount.m */,
+				18B476D0D5B0456EE8DB7FEFA611A335 /* ABCAccount+Internal.h */,
+				201A4130EAD6A9F8619E5DDA5B919628 /* ABCCategories.m */,
+				96675B4ABABF0FF299D19AC734DA252A /* ABCCategories+Internal.h */,
+				8D332E27724FFDAD71E2E5CE92B92D50 /* ABCCurrency.m */,
+				F704061BB79CFE14EB801E16F8FA304E /* ABCCurrency+Internal.h */,
+				B4DA6482237BEC00155AC32C1FA0E8A4 /* ABCDataStore.m */,
+				25A964679289188CB086F923C0663E22 /* ABCDataStore+Internal.h */,
+				1399C191830F499DD70E148B9E3281BD /* ABCDenomination.m */,
+				AC76BD183A45270E65A92FD488A14880 /* ABCError.h */,
+				1AEF2C1551DEC920B1E553B050E2739C /* ABCError.m */,
+				89D63058D8EE67F8A34BB619D3C81D78 /* ABCExchangeCache.m */,
+				6B512F6C731F74454EDE084384497E85 /* ABCExchangeCache+Internal.h */,
+				27F9E4237A386834558641618C6B3647 /* ABCKeychain.m */,
+				F23F032CB4E8DB1B9917298F271B27F8 /* ABCKeychain+Internal.h */,
+				0F56D120768A62F5AD50BD25EFA40D85 /* ABCLocalSettings.h */,
+				E52990E12174B4DC6A3AC4CC42926C65 /* ABCLocalSettings.m */,
+				44D3A0C7B93B4CDED18DA888AF9BA704 /* ABCMetaData.m */,
+				C1F93E29E7C13D9811860A7AD1D91037 /* ABCMetaData+Internal.h */,
+				C33A70E1E5807FEBD187C2DE6A089D35 /* ABCParsedURI.m */,
+				1ED7819325240EE3EF15D428CA375CB2 /* ABCParsedURI+Internal.h */,
+				EF969C330A55B93649ED3649B1BE51A5 /* ABCReceiveAddress.m */,
+				EC98867A9BD6B5098B73AD3DB57C4985 /* ABCReceiveAddress+Internal.h */,
+				0BAAA80F23B7229768F1624BBA7309D9 /* ABCSettings.m */,
+				018EC3B639FB9AB0B3FC664FBAB0DB02 /* ABCSettings+Internal.h */,
+				7703F8F8B460426F991C91C1E62DFEF1 /* ABCSpend.m */,
+				3BE7482895D6525AE9881B568020016D /* ABCSpend+Internal.h */,
+				5428611B0F46061459C394A8F2D50FBD /* ABCTransaction.m */,
+				63C1CD268D4D839A794813A967E8B004 /* ABCTransaction+Internal.h */,
+				D4B369924E4A3591E85B72B415C5E982 /* ABCTxInOut.m */,
+				100BD63F80A8299193727AC03E6DE0E7 /* ABCUtil.m */,
+				288A35C835D28A2750564C9C4D4C6000 /* ABCWallet.m */,
+				9F69CA2ED84E084E481A9AF6E0A39F3D /* ABCWallet+Internal.h */,
+				DAF6D65FF0BC21FE640CB9B49C45CFFB /* AirbitzCore.m */,
+				EA9A9C38A0E0F055372F7A3AD4F03DD6 /* AirbitzCore+Internal.h */,
+				7218C07B23D2B610C42015E1C3CEAC6D /* NSMutableData+Secure.h */,
+				DD223062F931DD1FB09DEAA145164280 /* NSMutableData+Secure.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		C7F7A17B349137144509C35E9E4900B6 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				5DDD912278A6DD53C7A401572F98E629 /* ABCAccount.h */,
+				A9B42DF3AE065E8FED5B06F8457A3A3B /* ABCCategories.h */,
+				78B4D0068626C05922DDD8113CB4F7E2 /* ABCConditionCode.h */,
+				10B93A7AC137F0F2616175B57C566B6E /* ABCCurrency.h */,
+				95232BAF70D93F5006D78A24DBD57E6F /* ABCDataStore.h */,
+				479D1A0B6D8D91C6D8BA5A4041CA3EF0 /* ABCDenomination.h */,
+				8D0FEB065FA7BD0E68E29D1373E3100B /* ABCExchangeCache.h */,
+				06391ABA6C5C256432554B11569812CC /* ABCKeychain.h */,
+				FDAFE970837B1DA67C81DEAA8A980194 /* ABCMetadata.h */,
+				84BC1E0E0436D95668BEF1A0033C47BF /* ABCParsedURI.h */,
+				CB5ADA3617CD95AFD78660713A5DB809 /* ABCReceiveAddress.h */,
+				C232895FDCF50E380B2137575A22872E /* ABCSettings.h */,
+				7A87C8F8DA67DC18D24593C99AF59EE6 /* ABCSpend.h */,
+				41B22131F9F5DB7C9A840E51B522F11A /* ABCStrings.h */,
+				4C1B1D09608FDBEA81E699E1BD33AC9B /* ABCStrings.m */,
+				89E673B4256CFF328D5A4D2EC3506994 /* ABCTransaction.h */,
+				A3A938CD1FABC24581B323D6D41C45D8 /* ABCTxInOut.h */,
+				4442E7D15F3C186C358FABFEAF1178AA /* ABCUtil.h */,
+				348D1C3989F66012BB2140AB90E5DF2D /* ABCWallet.h */,
+				F3E4E23D6A6FEFE62B14F549259EF613 /* AirbitzCore.h */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		C9FC98077ACE3E1AFE538188A40854CE /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1097559BBB591E9898E50B06BD73DE85 /* AirbitzCore */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		29A2542711B3FEFCF25CF7A0D5968176 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65251478AEC594B54BEB65A14057B25D /* ABC.h in Headers */,
+				CBD07DAC2C8EC74E1770F7B4EACA64F1 /* ABCAccount+Internal.h in Headers */,
+				1623421648FC66AD4465C399194D4A96 /* ABCAccount.h in Headers */,
+				2DC26DF67EBB259E3305282624DFCC9E /* ABCCategories+Internal.h in Headers */,
+				5F6C1A458ACA109B3E739A8301265F31 /* ABCCategories.h in Headers */,
+				1B5EF277D297146ABFA2681CEB47DB17 /* ABCConditionCode.h in Headers */,
+				EB0A1095EDB4E9507264E507976E04F8 /* ABCCurrency+Internal.h in Headers */,
+				76FAF021FC392FDA0315EC05685DB5CE /* ABCCurrency.h in Headers */,
+				47749EC3DAF264D313384B764BF0E9A6 /* ABCDataStore+Internal.h in Headers */,
+				2E214A115502FFE58AF87889EC66DC9C /* ABCDataStore.h in Headers */,
+				78CFD3B2E0E2AD3C6605DD184C65A3E2 /* ABCDenomination.h in Headers */,
+				13C1C57AE77F22DD5712DFF32AC5B8C4 /* ABCError.h in Headers */,
+				DBEBD0AF818B9E5C9498C1320340FFD5 /* ABCExchangeCache+Internal.h in Headers */,
+				14442FD085DE2B06B7454287558DC893 /* ABCExchangeCache.h in Headers */,
+				4413C7F3D2D11766DB75FFF575114585 /* ABCKeychain+Internal.h in Headers */,
+				C680FD8B7F9601BF02FDEA52D454ED5A /* ABCKeychain.h in Headers */,
+				3B328883E7ED95D519F88F0E835B31C5 /* ABCLocalSettings.h in Headers */,
+				342973419837E1CC2ED3D14A0DBE7C95 /* ABCMetaData+Internal.h in Headers */,
+				BAB27031C14C63EDFE8458FB9DF09BEF /* ABCMetadata.h in Headers */,
+				EE365FB4C2BB324CB2B0DB758A82419B /* ABCParsedURI+Internal.h in Headers */,
+				A298A642951C5A8CA4FA9C0BCABADF98 /* ABCParsedURI.h in Headers */,
+				D71F76BA24ECF1EFAAA3DD0FCAA8791C /* ABCReceiveAddress+Internal.h in Headers */,
+				30416C3700F65B8647125723D2C88D5F /* ABCReceiveAddress.h in Headers */,
+				1892FE70DC1D4144AA19BC399AEB8771 /* ABCSettings+Internal.h in Headers */,
+				D7AF3E6EC52360D069DD9927BBA74B17 /* ABCSettings.h in Headers */,
+				6D5A99C43E3178DFE654CF0855D5F263 /* ABCSpend+Internal.h in Headers */,
+				250BFDEB0E0E75BF46BA0FBEA2DE5971 /* ABCSpend.h in Headers */,
+				F3679F78A2F5E5B9A101ADEC61E57E52 /* ABCStrings.h in Headers */,
+				8276B88F764AF7768159CB802808939D /* ABCTransaction+Internal.h in Headers */,
+				BCF2AC96F1FB89C7AA94790A2099AEDD /* ABCTransaction.h in Headers */,
+				3A0A7A1DADF2CAB862522666720CE9F7 /* ABCTxInOut.h in Headers */,
+				831B1815955A9C9492417B7F6E8F3EFE /* ABCUtil.h in Headers */,
+				65BD49F77BBA189C0C1338E5A0E6EDDF /* ABCWallet+Internal.h in Headers */,
+				4BB2F32E10254D72C03F36A35BEEEFF1 /* ABCWallet.h in Headers */,
+				2A194FA6C41604A58FD661AF67F55D25 /* AirbitzCore+Internal.h in Headers */,
+				B2D442BADA7B9C8533C9FAEA278F60D5 /* AirbitzCore.h in Headers */,
+				60F56E0648D91892049A468CCC72DA13 /* NSMutableData+Secure.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4BA616CE67AAD05913B2E6311F79D802 /* Pods-ReactTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1244FABB345183B4AA1A4EB7B7B8CBD2 /* Build configuration list for PBXNativeTarget "Pods-ReactTest" */;
+			buildPhases = (
+				E261BBA83F0D4BE40FC8A4A0474BE939 /* Sources */,
+				9C8BC877483A3A8CAB98BD082EFC5A34 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				115D98364C2EE79C841FDA788265A1F0 /* PBXTargetDependency */,
+			);
+			name = "Pods-ReactTest";
+			productName = "Pods-ReactTest";
+			productReference = 5E284AA4F460AA21E54C7796B5F36D6C /* libPods-ReactTest.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4EDC483C74E5ED0FA73CD244D2364D98 /* AirbitzCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4369C22869B7D2E955F2284069DB8C32 /* Build configuration list for PBXNativeTarget "AirbitzCore" */;
+			buildPhases = (
+				AC509D04E2D2CDFDB852C02CB36FB083 /* Sources */,
+				5380D942892C9E5B39227E1DC5BC0E78 /* Frameworks */,
+				29A2542711B3FEFCF25CF7A0D5968176 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirbitzCore;
+			productName = AirbitzCore;
+			productReference = 2FC6AACFDBE9BB28A6FB1C07AF3ABCCE /* libAirbitzCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = B244DD8510853CA87254297ECB2D03D8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EDC483C74E5ED0FA73CD244D2364D98 /* AirbitzCore */,
+				4BA616CE67AAD05913B2E6311F79D802 /* Pods-ReactTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC509D04E2D2CDFDB852C02CB36FB083 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CC3C3773DBABBC8EBE5332E17EA11C5 /* ABCAccount.m in Sources */,
+				6734B702055C9EBA9ACF73829929CA33 /* ABCCategories.m in Sources */,
+				BDDC196455292C01453541684469364E /* ABCCurrency.m in Sources */,
+				EC63641EF0D240601A2CA99296987F97 /* ABCDataStore.m in Sources */,
+				5770728CDEA85CCE59FBE3360648B125 /* ABCDenomination.m in Sources */,
+				E56D0930E13A8FA4ACAA3FAF5AE89ABF /* ABCError.m in Sources */,
+				F7F0BFBC837A46910C77F04116919CAA /* ABCExchangeCache.m in Sources */,
+				065C0DCE728C8F0DEA5C1052D4E43D04 /* ABCKeychain.m in Sources */,
+				716040E0C2895257B39CDBE56D5AEBD1 /* ABCLocalSettings.m in Sources */,
+				E962FB9D742804BE4F81F7B79521001D /* ABCMetaData.m in Sources */,
+				2943DB8E453EBAFB512F29A78B3A77FB /* ABCParsedURI.m in Sources */,
+				81C63CBE9B6843118E954BFF3205D38B /* ABCReceiveAddress.m in Sources */,
+				6FFE7C2ACE22649CA20F3530E91464DF /* ABCSettings.m in Sources */,
+				6DD44007CCD4999E2A14A0B06F4B20E6 /* ABCSpend.m in Sources */,
+				1E65A068CB0DDEE0B5C99AA62EF21F41 /* ABCStrings.m in Sources */,
+				4E916E737F4EF1FAC9816E153D7A05C0 /* ABCTransaction.m in Sources */,
+				2CD3F24707AC18FE7E4A31BFFBC16B44 /* ABCTxInOut.m in Sources */,
+				80D9BCDBB4CCC65CBAD68FA387C77C49 /* ABCUtil.m in Sources */,
+				F9FC8F57973A62D69F2845160DC27DA0 /* ABCWallet.m in Sources */,
+				529E7BDF585F7F54AD99C5EAF001C374 /* AirbitzCore-dummy.m in Sources */,
+				B3813BE0F7EDF2EAC45B0B16237FAB28 /* AirbitzCore.m in Sources */,
+				F83C5F60C20A8D102BC626EE158B9606 /* NSMutableData+Secure.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E261BBA83F0D4BE40FC8A4A0474BE939 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				440919083814BEA70AEB37323F57EEDA /* Pods-ReactTest-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		115D98364C2EE79C841FDA788265A1F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AirbitzCore;
+			target = 4EDC483C74E5ED0FA73CD244D2364D98 /* AirbitzCore */;
+			targetProxy = 77AD8C96827DC523BF5BC291D8D305AE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3DF67CB9E143E693162FB606CBFFDCF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75B7DEA2724EC8CA5C22451CD5B6506C /* AirbitzCore.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AirbitzCore/AirbitzCore-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		3FA2475660FFC880302AD18E29B2E5FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		4268DD451888D2917BDE00D3752F1557 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75B7DEA2724EC8CA5C22451CD5B6506C /* AirbitzCore.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AirbitzCore/AirbitzCore-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A31CA3EB7F7262DF76A945A81E2C5FC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04A3251746A029430FF08E8C6F46F778 /* Pods-ReactTest.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CCBB2589ED6C4FE0063C809C143BF548 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 395B88D68011F4735237496363D63EA4 /* Pods-ReactTest.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F325026B55060D3B22BEC0BAB5FA7344 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1244FABB345183B4AA1A4EB7B7B8CBD2 /* Build configuration list for PBXNativeTarget "Pods-ReactTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCBB2589ED6C4FE0063C809C143BF548 /* Debug */,
+				A31CA3EB7F7262DF76A945A81E2C5FC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FA2475660FFC880302AD18E29B2E5FC /* Debug */,
+				F325026B55060D3B22BEC0BAB5FA7344 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4369C22869B7D2E955F2284069DB8C32 /* Build configuration list for PBXNativeTarget "AirbitzCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4268DD451888D2917BDE00D3752F1557 /* Debug */,
+				3DF67CB9E143E693162FB606CBFFDCF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
