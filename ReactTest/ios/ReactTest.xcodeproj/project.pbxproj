@@ -24,6 +24,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		3BDC64B6F674CACE55527A64 /* libPods-ReactTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C63B406518FB79457CBCD7 /* libPods-ReactTest.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		DA6B49811D375CD8004AC446 /* ABCReact.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6B49801D375CD8004AC446 /* ABCReact.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,8 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		CC9FFB888BB43898FA1E3E2D /* Pods-ReactTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReactTest/Pods-ReactTest.release.xcconfig"; sourceTree = "<group>"; };
+		DA6B497F1D375CD8004AC446 /* ABCReact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ABCReact.h; path = "../../../airbitz-core-objc/ReactBridge/ABCReact.h"; sourceTree = "<group>"; };
+		DA6B49801D375CD8004AC446 /* ABCReact.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = ABCReact.m; path = "../../../airbitz-core-objc/ReactBridge/ABCReact.m"; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +281,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DA6B497F1D375CD8004AC446 /* ABCReact.h */,
+				DA6B49801D375CD8004AC446 /* ABCReact.m */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -622,6 +627,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				DA6B49811D375CD8004AC446 /* ABCReact.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

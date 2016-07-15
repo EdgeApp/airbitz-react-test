@@ -51,3 +51,20 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('ReactTest', () => ReactTest);
+
+import { NativeModules } from 'react-native';
+var AirbitzCoreRCT = NativeModules.AirbitzCoreRCT;
+AirbitzCoreRCT.init('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', () => {
+  console.log("ABC Initialized")
+  createAccount()
+}, () => {
+  console.log("ABC Initialization failed")
+});
+
+function createAccount () {
+  AirbitzCoreRCT.createAccount("helloman001", "helloPW001", "1234", () => {
+    console.log("account created")
+  }, () => {
+    console.log("account create failed")
+  })
+}
