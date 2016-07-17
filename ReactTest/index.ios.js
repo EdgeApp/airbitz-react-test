@@ -71,6 +71,7 @@ function createAccount () {
   abc.createAccount("helloman008", "helloPW001", "1234", (account) => {
     console.log("account created")
     logout(account)
+    login("helloman008", "helloPW001")
   }, (error) => {
     console.log("account create failed")
   })
@@ -79,5 +80,13 @@ function createAccount () {
 function logout (account) {
   account.logout(() => {
     console.log("Logged out")
+  })
+}
+
+function login (username, password) {
+  abc.passwordLogin(username, password, "", (account) => {
+
+  }, (rtcerror) => {
+
   })
 }

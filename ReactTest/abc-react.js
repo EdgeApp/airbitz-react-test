@@ -25,20 +25,56 @@ function makeABCError(rcterror) {
   return err
 }
 
+/**
+ * ABCAccount Class
+ */
 class ABCAccount {
   constructor(name) {
     this.name = name
   }
 
+  /**
+   * logout
+   * @param complete
+   */
   logout (complete) {
     AirbitzCoreRCT.logout(() => {
       complete()
     })
 
   }
+
+  /**
+   * passwordLogin
+   *
+   * @param username
+   * @param password
+   * @param otp
+   * @param complete
+   * @param error
+   */
+  passwordLogin(username, password, otp, complete, error) {
+    AirbitzCoreRCT.passwordLogin(username, password, otp, (response) => {
+      complete(new ABCAccount(response))
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
 }
 
+/**
+ * AirbitzCore class
+ */
 class AirbitzCore {
+
+  /**
+   * init
+   *
+   * @param apikey
+   * @param hbits
+   * @param complete
+   * @param error
+   */
   init (apikey, hbits, complete, error) {
     AirbitzCoreRCT.init(apikey, hbits, (response) => {
       console.log("ABC Initialized")
@@ -49,6 +85,15 @@ class AirbitzCore {
     })
   }
 
+  /**
+   * createAccount
+   *
+   * @param username
+   * @param password
+   * @param pin
+   * @param complete
+   * @param error
+   */
   createAccount (username, password, pin, complete, error) {
     AirbitzCoreRCT.createAccount(username, password, pin, (response) => {
       console.log("account created")
