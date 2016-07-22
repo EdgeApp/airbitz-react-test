@@ -8,6 +8,13 @@ import {
 } from 'react-native';
 
 import { NativeModules } from 'react-native';
+import { NativeAppEventEmitter } from 'react-native';
+
+var subscription = NativeAppEventEmitter.addListener(
+  'abcAccountWalletLoaded', (wallet) => console.log(wallet.uuid)
+
+);
+
 var AirbitzCoreRCT = NativeModules.AirbitzCoreRCT;
 
 class ABCError {
@@ -23,6 +30,43 @@ function makeABCError(rcterror) {
   var code = rcterror['code'].replace("EABCERRORDOMAIN","")
   var err = new ABCError(code, rcterror['message'])
   return err
+}
+
+/**
+ * ABCWallet Class
+ */
+class ABCTransaction {
+  constructor(wallet, obj) {
+    this.wallet = wallet
+    for (var prop in obj)
+      this[prop] = obj[prop];
+  }
+
+}
+
+/**
+ * ABCWallet Class
+ */
+class ABCWallet {
+  constructor(account, obj) {
+    this.account = account
+    for (var prop in obj)
+      this[prop] = obj[prop];
+  }
+
+  getTransactions(complete, error) {
+    AirbitzCoreRCT.getTransactions((transactions) => {
+      var txs = JSON.parse(transactions);
+
+      for (i = 0; i < txs.length; i++) {
+        txsReturn[i] = new ABCTransaction(this, txs[i])
+      }
+
+      complete(txsReturn)
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
 }
 
 /**
@@ -45,21 +89,87 @@ class ABCAccount {
   }
 
   /**
-   * passwordLogin
-   *
-   * @param username
+   * changePassword
    * @param password
-   * @param otp
    * @param complete
    * @param error
    */
-  passwordLogin(username, password, otp, complete, error) {
-    AirbitzCoreRCT.passwordLogin(username, password, otp, (response) => {
-      complete(new ABCAccount(response))
+  changePassword(password, complete, error) {
+    AirbitzCoreRCT.changePassword(password, (response) => {
+      complete()
     }, (rtcerror) => {
       error(new ABCError(rtcerror['code'], rtcerror['message']))
     })
   }
+
+  /**
+   * changePIN
+   * @param pin
+   * @param complete
+   * @param error
+   */
+  changePIN(pin, complete, error) {
+    AirbitzCoreRCT.changePIN(pin, (response) => {
+      complete()
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
+  /**
+   * checkPassword
+   * @param password
+   * @param complete
+   * @param error
+   */
+  checkPassword(password, complete, error) {
+    AirbitzCoreRCT.checkPassword(pin, (response) => {
+      complete(response)
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
+  /**
+   * pinLoginSetup
+   * @param enable
+   * @param complete
+   * @param error
+   */
+  pinLoginSetup(enable, complete, error) {
+    AirbitzCoreRCT.pinLoginSetup(enable, (response) => {
+      complete(response)
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
+  /**
+   * accountHasPassword
+   * @param complete
+   * @param error
+   */
+  accountHasPassword(complete, error) {
+    AirbitzCoreRCT.accountHasPassword(pin, (response) => {
+      complete(response)
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
+  getWallets(complete, error) {
+    AirbitzCoreRCT.getWallets((wallets) => {
+      var ws = JSON.parse(wallets)
+
+      for (i = 0; i < ws.length; i++) {
+        walletsReturn[i] = new ABCWallet(this, ws[i])
+      }
+      complete(walletsReturn)
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
 }
 
 /**
@@ -102,6 +212,41 @@ class AirbitzCore {
       error(makeABCError(rcterror))
     })
   }
+
+  /**
+   * passwordLogin
+   *
+   * @param username
+   * @param password
+   * @param otp
+   * @param complete
+   * @param error
+   */
+  passwordLogin(username, password, otp, complete, error) {
+    AirbitzCoreRCT.passwordLogin(username, password, otp, (response) => {
+      complete(new ABCAccount(response))
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
+  /**
+   * pinLogin
+   *
+   * @param username
+   * @param pin
+   * @param complete
+   * @param error
+   */
+  pinLogin(username, pin, complete, error) {
+    AirbitzCoreRCT.pinLogin(username, pin, (response) => {
+      complete(new ABCAccount(response))
+    }, (rtcerror) => {
+      error(new ABCError(rtcerror['code'], rtcerror['message']))
+    })
+  }
+
+
 }
 
 

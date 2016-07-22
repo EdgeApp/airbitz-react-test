@@ -52,41 +52,119 @@ const styles = StyleSheet.create({
 
 AppRegistry.registerComponent('ReactTest', () => ReactTest);
 
-var a = require('./abc-react.js');
+var abcTests = require("./abc-react-tests.js")
 
-var abc = new a.AirbitzCore
+abcTests.BeginTests()
 
-console.log("Initializing...")
-
-abc.init('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', () => {
-  console.log("ABC Initialized")
-  createAccount()
-}, (error) => {
-  if (error.code == 23) { // ABC Already initialized
-    createAccount()
-  }
-});
-
-function createAccount () {
-  abc.createAccount("helloman008", "helloPW001", "1234", (account) => {
-    console.log("account created")
-    logout(account)
-    login("helloman008", "helloPW001")
-  }, (error) => {
-    console.log("account create failed")
-  })
-}
-
-function logout (account) {
-  account.logout(() => {
-    console.log("Logged out")
-  })
-}
-
-function login (username, password) {
-  abc.passwordLogin(username, password, "", (account) => {
-
-  }, (rtcerror) => {
-
-  })
-}
+//var a = require('./abc-react.js');
+//
+//var abc = new a.AirbitzCore
+//
+//console.log("Initializing...")
+//
+//function makeID()
+//{
+//  var text = "";
+//  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+//
+//  for( var i=0; i < 12; i++ )
+//    text += possible.charAt(Math.floor(Math.random() * possible.length));
+//
+//  return text;
+//}
+//
+//var myusername = "tester" + makeID()
+//
+//abc.init('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', () => {
+//  console.log("ABC Initialized")
+//  createAccountTest()
+//}, (error) => {
+//  if (error.code == 23) { // ABC Already initialized. Create account anyway
+//    createAccountTest()
+//  }
+//});
+//
+//function createAccountTest () {
+//  abc.createAccount(myusername, "helloPW001", "1234", (account) => {
+//    console.log("account created")
+//    logoutTest(account)
+//    loginTest(myusername, "helloPW001")
+//  }, (error) => {
+//    console.log("createAccount test failed")
+//  })
+//}
+//
+//function logoutTest (account) {
+//  account.logout(() => {
+//    console.log("Logged out")
+//  })
+//}
+//
+//function loginTest (username, password) {
+//  abc.passwordLogin(username, password, "", (account) => {
+//    changePasswordTest(account)
+//  }, (rtcerror) => {
+//    console.log("Password login test FAILED")
+//  })
+//}
+//
+//function changePasswordTest(account) {
+//  account.changePassword("helloPW002", () => {
+//    console.log("Change password PASSED")
+//    account.logout(() => {
+//      abc.passwordLogin(myusername, "helloPW001","", (account) => {
+//        account.logout(() => {
+//          console.log("Change password relogin PASSED")
+//          pinLoginTest()
+//        })
+//      }, (rtcerror) => {
+//        console.log("Change password relogin FAILED")
+//      })
+//    })
+//
+//  }, () => {
+//    console.log("Change password FAILED")
+//  })
+//
+//}
+//
+//function pinLoginTest () {
+//  abc.pinLogin(myusername, "1234", (account) => {
+//    console.log("pinLogin test PASSED")
+//
+//  }, (rtcerror) => {
+//    console.log("pinLogin test FAILED")
+//
+//  })
+//}
+//
+//function changePinTest(account) {
+//  account.changePIN("4321", () => {
+//    console.log("changePIN test PASSED")
+//    account.logout(() => {
+//      abc.pinLogin(myusername, "4321", (account) => {
+//        console.log("Change pin relogin PASSED")
+//        disablePinLoginTest(account)
+//      }, (rtcerror) => {
+//        console.log("Change pin relogin FAILED")
+//      })
+//    })
+//
+//  }, () => {
+//    console.log("changePIN test FAILED")
+//  })
+//}
+//
+//
+//function disablePinLoginTest(account)
+//{
+//  account.pinLoginSetup(false)
+//  account.logout(() => {
+//    abc.pinLogin(myusername, "4321", (account) => {
+//      console.log("Change pin relogin FAILED")
+//    }, (rtcerror) => {
+//      console.log("Change pin relogin PASSED")
+//    })
+//
+//  })
+//}
