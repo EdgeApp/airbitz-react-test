@@ -16,6 +16,11 @@ var a = require('./abc-react.js');
 
 var abc
 
+function sleep( sleepDuration ){
+  var now = new Date().getTime();
+  while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
+}
+
 function makeID()
 {
   var text = "";
@@ -92,7 +97,7 @@ function changePasswordTest(account) {
 
 }
 
-function pinLoginTest (redo=true) {
+function pinLoginTest (redo=5) {
   abc.pinLogin(myusername, "1234", (account) => {
     console.log("pinLogin test PASSED")
     changePinTest(account)
@@ -100,7 +105,8 @@ function pinLoginTest (redo=true) {
   }, (rtcerror) => {
     console.log("pinLogin test FAILED")
     if (redo) {
-      redo = false;
+      redo--;
+      sleep(1000)
       pinLoginTest(false)
     }
 
@@ -113,7 +119,7 @@ function changePinTest(account) {
     account.logout(() => {
       abc.pinLogin(myusername, "4321", (account) => {
         console.log("Change pin relogin PASSED")
-        disablePinLoginTest(account)
+        checkPasswordTest(account)
       }, (rtcerror) => {
         console.log("Change pin relogin FAILED")
       })
@@ -122,6 +128,34 @@ function changePinTest(account) {
   }, () => {
     console.log("changePIN test FAILED")
   })
+}
+
+function checkPasswordTest(account) {
+  account.checkPassword("helloPW002", (check) => {
+    if (check) {
+      console.log("checkPasswordTest test PASSED")
+      checkWrongPasswordTest(account)
+    } else {
+      console.log("checkPasswordTest test FAILED")
+    }
+  }, (rtcerror) => {
+    console.log("Error: checkPasswordTest test FAILED")
+  })
+
+}
+
+function checkWrongPasswordTest(account) {
+  account.checkPassword("helloPW002wrong", (check) => {
+    if (check) {
+      console.log("checkWrongPasswordTest test FAILED")
+    } else {
+      console.log("checkWrongPasswordTest test PASSED")
+      disablePinLoginTest(account)
+    }
+  }, (rtcerror) => {
+    console.log("Error: checkWrongPasswordTest test FAILED")
+  })
+
 }
 
 
@@ -133,11 +167,66 @@ function disablePinLoginTest(account)
         console.log("Disable pin relogin FAILED")
       }, (rtcerror) => {
         console.log("Disable pin relogin PASSED")
+        createPINOnlyAccountTest()
       })
     })
   }, (rtcerror) => {
-
+    console.log("changePIN test FAILED")
   })
 }
+
+
+function createPINOnlyAccountTest() {
+  abc.createAccount(myusername + "pinonly", "", "1234", (account) => {
+    console.log("createAccount PIN Only test PASSED")
+    account.logout(() => {
+      hasPasswordTest()
+    })
+  }, (error) => {
+    console.log("createAccount PIN Only test FAILED")
+  })
+}
+
+function hasPasswordTest() {
+  abc.accountHasPassword(myusername, (hasPassword) => {
+    if (hasPassword) {
+      console.log("hasPasswordTest test PASSED")
+      hasNoPasswordTest()
+    } else {
+      console.log("hasPasswordTest test FAILED")
+    }
+  }, (rtcerror) => {
+    console.log("Error: hasPasswordTest test FAILED")
+  })
+}
+
+function hasNoPasswordTest() {
+  abc.accountHasPassword(myusername + "pinonly", (hasPassword) => {
+    if (hasPassword) {
+      console.log("hasNoPasswordTest test FAILED")
+    } else {
+      console.log("hasNoPasswordTest test PASSED")
+      pinOnlyLoginTest()
+    }
+  }, (rtcerror) => {
+    console.log("Error: hasNoPasswordTest test FAILED")
+  })
+}
+
+
+function pinOnlyLoginTest(redo=5) {
+  abc.pinLogin(myusername + "pinonly", "1234", (account) => {
+    console.log("PIN only Login test PASSED")
+    console.log("*** ALL TESTS PASSED ***")
+  }, (rtcerror) => {
+    console.log("PIN only Login test FAILED")
+    if (redo) {
+      redo--;
+      sleep(1000)
+      pinOnlyLoginTest(false)
+    }
+  })
+}
+
 
 module.exports.BeginTests = BeginTests
