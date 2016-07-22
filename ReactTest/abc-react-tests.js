@@ -15,6 +15,25 @@ import {
 var a = require('./abc-react.js');
 
 var abc
+var callbacks = new a.ABCCallbacks()
+
+callbacks.abcAccountAccountChanged = abcAccountAccountChanged
+callbacks.abcAccountWalletLoaded = abcAccountWalletLoaded
+
+var walletLoadedCallbackOccurred = 0
+var accountLoadedCallbackOccurred = 0
+
+function abcAccountWalletLoaded(walletUUID) {
+  walletLoadedCallbackOccurred = 1;
+  console.log("walletLoadedCallbackOccurred")
+}
+
+function abcAccountAccountChanged(account) {
+  accountLoadedCallbackOccurred = 1
+  console.log("accountLoadedCallbackOccurred")
+}
+
+
 
 function sleep( sleepDuration ){
   var now = new Date().getTime();
@@ -54,7 +73,7 @@ function BeginTests()
 
 
 function createAccountTest () {
-  abc.createAccount(myusername, "helloPW001", "1234", (account) => {
+  abc.createAccount(myusername, "helloPW001", "1234", callbacks, (account) => {
     console.log("createAccount test PASSED")
     logoutTest(account)
   }, (error) => {
@@ -70,7 +89,7 @@ function logoutTest (account) {
 }
 
 function loginTest (username, password) {
-  abc.passwordLogin(username, password, "", (account) => {
+  abc.passwordLogin(username, password, "", callbacks, (account) => {
     changePasswordTest(account)
   }, (rtcerror) => {
     console.log("Password login test FAILED")
@@ -81,7 +100,7 @@ function changePasswordTest(account) {
   account.changePassword("helloPW002", () => {
     console.log("Change password PASSED")
     account.logout(() => {
-      abc.passwordLogin(myusername, "helloPW002","", (account) => {
+      abc.passwordLogin(myusername, "helloPW002","", callbacks, (account) => {
         account.logout(() => {
           console.log("Change password relogin PASSED")
           pinLoginTest()
@@ -98,7 +117,7 @@ function changePasswordTest(account) {
 }
 
 function pinLoginTest (redo=5) {
-  abc.pinLogin(myusername, "1234", (account) => {
+  abc.pinLogin(myusername, "1234", callbacks, (account) => {
     console.log("pinLogin test PASSED")
     changePinTest(account)
 
@@ -106,8 +125,8 @@ function pinLoginTest (redo=5) {
     console.log("pinLogin test FAILED")
     if (redo) {
       redo--;
-      sleep(1000)
-      pinLoginTest(false)
+      sleep(3000)
+      pinLoginTest(redo)
     }
 
   })
@@ -117,7 +136,7 @@ function changePinTest(account) {
   account.changePIN("4321", () => {
     console.log("changePIN test PASSED")
     account.logout(() => {
-      abc.pinLogin(myusername, "4321", (account) => {
+      abc.pinLogin(myusername, "4321", callbacks, (account) => {
         console.log("Change pin relogin PASSED")
         checkPasswordTest(account)
       }, (rtcerror) => {
@@ -163,7 +182,7 @@ function disablePinLoginTest(account)
 {
   account.pinLoginSetup(false, () => {
     account.logout(() => {
-      abc.pinLogin(myusername, "4321", (account) => {
+      abc.pinLogin(myusername, "4321", callbacks, (account) => {
         console.log("Disable pin relogin FAILED")
       }, (rtcerror) => {
         console.log("Disable pin relogin PASSED")
@@ -177,7 +196,7 @@ function disablePinLoginTest(account)
 
 
 function createPINOnlyAccountTest() {
-  abc.createAccount(myusername + "pinonly", "", "1234", (account) => {
+  abc.createAccount(myusername + "pinonly", "", "1234", callbacks, (account) => {
     console.log("createAccount PIN Only test PASSED")
     account.logout(() => {
       hasPasswordTest()
@@ -215,18 +234,29 @@ function hasNoPasswordTest() {
 
 
 function pinOnlyLoginTest(redo=5) {
-  abc.pinLogin(myusername + "pinonly", "1234", (account) => {
+  abc.pinLogin(myusername + "pinonly", "1234", callbacks, (account) => {
     console.log("PIN only Login test PASSED")
-    console.log("*** ALL TESTS PASSED ***")
+    callbacksTest()
   }, (rtcerror) => {
     console.log("PIN only Login test FAILED")
     if (redo) {
       redo--;
-      sleep(1000)
-      pinOnlyLoginTest(false)
+      sleep(3000)
+      pinOnlyLoginTest(redo)
     }
   })
 }
 
+function callbacksTest() {
+  for (i = 0; i < 10; i++) {
+    if (accountLoadedCallbackOccurred) {
+      console.log("Callbacks test PASSED")
+      console.log("*** ALL TESTS PASSED ***")
+      return;
+    }
+    sleep(1000)
+  }
+  console.log("Callbacks test FAILED")
+}
 
 module.exports.BeginTests = BeginTests

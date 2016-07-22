@@ -10,10 +10,41 @@ import {
 import { NativeModules } from 'react-native';
 import { NativeAppEventEmitter } from 'react-native';
 
-var subscription = NativeAppEventEmitter.addListener(
-  'abcAccountWalletLoaded', (wallet) => console.log(wallet.uuid)
+var abc = null
+var abcAccount = null
 
+var accountWalletLoadedSubscription = NativeAppEventEmitter.addListener(
+  'abcAccountWalletLoaded', (wallet) => {
+    walletLoaded(wallet.uuid)
+  }
 );
+
+function walletLoaded(uuid) {
+  if (abcAccount) {
+    if (abcAccount.callbacks.abcAccountWalletLoaded) {
+      for (w in abcAccount.getWallets()) {
+        if (w.uuid == uuid) {
+          abcAccount.callbacks.abcAccountWalletLoaded(w)
+        }
+      }
+    }
+  }
+}
+
+var accountAccountChangedSubscription = NativeAppEventEmitter.addListener(
+  'abcAccountAccountChanged', (response) => {
+    accountChanged(response.name)
+  }
+);
+
+function accountChanged (name) {
+  console.log(name)
+  if (abcAccount && abcAccount.name == name) {
+    if (abcAccount.callbacks.abcAccountAccountChanged) {
+      abcAccount.callbacks.abcAccountAccountChanged(abcAccount)
+    }
+  }
+}
 
 var AirbitzCoreRCT = NativeModules.AirbitzCoreRCT;
 
@@ -33,7 +64,7 @@ function makeABCError(rcterror) {
 }
 
 /**
- * ABCWallet Class
+ * ABCTransaction Class
  */
 class ABCTransaction {
   constructor(wallet, obj) {
@@ -70,11 +101,23 @@ class ABCWallet {
 }
 
 /**
+ * ABCCallbacks
+ */
+class ABCCallbacks {
+  constructor() {
+    this.abcAccountAccountChanged = function() {}
+    this.abcAccountWalletLoaded = function() {}
+  }
+}
+
+/**
  * ABCAccount Class
  */
 class ABCAccount {
-  constructor(name) {
+  constructor(name, callbacks) {
     this.name = name
+    this.callbacks = callbacks
+    abcAccount = this
   }
 
   /**
@@ -85,7 +128,6 @@ class ABCAccount {
     AirbitzCoreRCT.logout(() => {
       complete()
     })
-
   }
 
   /**
@@ -144,6 +186,10 @@ class ABCAccount {
     })
   }
 
+  setCallbacks(callbacks) {
+    this.callbacks = callbacks
+  }
+
   getWallets(complete, error) {
     AirbitzCoreRCT.getWallets((wallets) => {
       var ws = JSON.parse(wallets)
@@ -175,8 +221,8 @@ class AirbitzCore {
   init (apikey, hbits, complete, error) {
     AirbitzCoreRCT.init(apikey, hbits, (error, response) => {
       console.log("ABC Initialized")
-      account = new ABCAccount(response)
-      complete(account)
+      abc  = this
+      complete()
     }, (rcterror) => {
       error(makeABCError(rcterror))
     })
@@ -191,10 +237,10 @@ class AirbitzCore {
    * @param complete
    * @param error
    */
-  createAccount (username, password, pin, complete, error) {
+  createAccount (username, password, pin, callbacks, complete, error) {
     AirbitzCoreRCT.createAccount(username, password, pin, (error, response) => {
       console.log("account created")
-      complete(new ABCAccount(response))
+      complete(new ABCAccount(response, callbacks))
     }, (rcterror) => {
       error(makeABCError(rcterror))
     })
@@ -209,9 +255,9 @@ class AirbitzCore {
    * @param complete
    * @param error
    */
-  passwordLogin(username, password, otp, complete, error) {
+  passwordLogin(username, password, otp, callbacks, complete, error) {
     AirbitzCoreRCT.passwordLogin(username, password, otp, (error, response) => {
-      complete(new ABCAccount(response))
+      complete(new ABCAccount(response, callbacks))
     }, (rtcerror) => {
       error(new ABCError(rtcerror['code'], rtcerror['message']))
     })
@@ -225,9 +271,9 @@ class AirbitzCore {
    * @param complete
    * @param error
    */
-  pinLogin(username, pin, complete, error) {
+  pinLogin(username, pin, callbacks, complete, error) {
     AirbitzCoreRCT.pinLogin(username, pin, (error, response) => {
-      complete(new ABCAccount(response))
+      complete(new ABCAccount(response, callbacks))
     }, (rtcerror) => {
       error(new ABCError(rtcerror['code'], rtcerror['message']))
     })
@@ -252,3 +298,4 @@ class AirbitzCore {
 
 
 module.exports.AirbitzCore = AirbitzCore
+module.exports.ABCCallbacks = ABCCallbacks
