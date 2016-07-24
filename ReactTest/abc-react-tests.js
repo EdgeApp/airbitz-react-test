@@ -4,6 +4,8 @@
  * @flow
  */
 
+"use strict"
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -32,8 +34,6 @@ function abcAccountAccountChanged(account) {
   accountLoadedCallbackOccurred = 1
   console.log("accountLoadedCallbackOccurred")
 }
-
-
 
 function sleep( sleepDuration ){
   var now = new Date().getTime();
@@ -64,18 +64,21 @@ function BeginTests()
     console.log("ABC Initialized")
     createAccountTest()
   }, (error) => {
-    if (error.code == 23) { // ABC Already initialized. Create account anyway
+    if (error.code === 23) { // ABC Already initialized. Create account anyway
       createAccountTest()
     }
   });
-
 }
 
 
 function createAccountTest () {
   abc.createAccount(myusername, "helloPW001", "1234", callbacks, (account) => {
-    console.log("createAccount test PASSED")
-    logoutTest(account)
+    if (account.name === myusername) {
+      console.log("createAccount test PASSED")
+      logoutTest(account)
+    } else {
+      console.log("createAccount test FAILED. Wrong name")
+    }
   }, (error) => {
     console.log("createAccount test FAILED")
   })
@@ -248,7 +251,7 @@ function pinOnlyLoginTest(redo=5) {
 }
 
 function callbacksTest() {
-  for (i = 0; i < 10; i++) {
+  for (var i = 0; i < 10; i++) {
     if (accountLoadedCallbackOccurred) {
       console.log("Callbacks test PASSED")
       console.log("*** ALL TESTS PASSED ***")
