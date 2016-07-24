@@ -51,3 +51,8 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('ReactTest', () => ReactTest);
+
+var abcTests = require("./abc-react-tests.js")
+
+abcTests.BeginTests()
+
