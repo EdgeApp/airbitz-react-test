@@ -133,7 +133,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		86579A9DEBC4D2782CE616FB /* libPods-ReactTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA573091D44563100181310 /* ABCReact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ABCReact.h; path = "../../../airbitz-core-objc/ReactBridge/ABCReact.h"; sourceTree = "<group>"; };
-		DAA5730A1D44563100181310 /* ABCReact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ABCReact.m; path = "../../../airbitz-core-objc/ReactBridge/ABCReact.m"; sourceTree = "<group>"; };
+		DAA5730A1D44563100181310 /* ABCReact.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = ABCReact.m; path = "../../../airbitz-core-objc/ReactBridge/ABCReact.m"; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
