@@ -14,9 +14,8 @@ import {
   View
 } from 'react-native';
 
-var a = require('./abc-react.js');
+var abc = require('./abc-react.js');
 
-var abc
 var callbacks
 
 var oldAccountName = "hello21"
@@ -78,6 +77,8 @@ var myotpKey
 var dummyAccount = new DummyAccount()
 
 var abcAccount = dummyAccount
+var abcc = abc.ABCConditionCode
+var abcContext
 
 function testEval (name, passed) {
   if (passed) {
@@ -90,7 +91,6 @@ function testEval (name, passed) {
 
 function BeginTests()
 {
-  abc = new a.AirbitzCore
   myusername = "tester" + makeID()
 
   console.log("Initializing...")
@@ -132,10 +132,11 @@ function runTestsAsync () {
 function makeABCContextTest() {
   return new Promise(function(resolve, reject) {
     var funcname = "makeABCContextTest"
-    abc.makeABCContext('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', function (error) {
-      if (error && error.code != 23) {
+    abc.makeABCContext('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', function (error, context) {
+      if (error && error.code != abcc.ABCConditionCodeReinitialization) {
         reject(funcname)
       } else {
+        abcContext = context
         resolve(funcname)
       }
     })
@@ -147,10 +148,10 @@ function oldAccountNewDeviceLoginTest () {
   return new Promise(function(resolve, reject) {
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
-      abc.localAccountDelete(oldAccountName, function (error) {
-        if (error) reject(funcname)
+      abcContext.localAccountDelete(oldAccountName, function (error) {
+        if (error && (error.code != abcc.ABCConditionCodeFileDoesNotExist)) reject(funcname)
         else {
-          abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
+          abcContext.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
             if (error || (oldAccountName != account.username)) {
               reject(funcname)
             } else {
@@ -169,13 +170,13 @@ function oldAccountNewDevicePINLoginTest () {
     var funcname = "oldAccountNewDevicePINLoginTest"
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
-      abc.localAccountDelete(oldAccountName, function (error) {
-        abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
+      abcContext.localAccountDelete(oldAccountName, function (error) {
+        abcContext.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
           if (error) reject(funcname)
           else {
             sleep(5000)
             account.logout(() => {
-              abc.pinLogin(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
+              abcContext.pinLogin(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
                 if (error) reject(funcname)
                 else {
                   abcAccount = account
@@ -195,8 +196,8 @@ function oldAccountOTPLoginWithoutOTPToken () {
     var funcname = "oldAccountOTPLoginWithoutOTPToken"
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
-      abc.localAccountDelete(otpAccountName, function (error) {
-        abc.passwordLogin(otpAccountName, otpAccountPassword, "", callbacks, function (error, account) {
+      abcContext.localAccountDelete(otpAccountName, function (error) {
+        abcContext.passwordLogin(otpAccountName, otpAccountPassword, "", callbacks, function (error, account) {
           if (error) {
             abcAccount = account
             resolve(funcname)
@@ -213,8 +214,8 @@ function oldAccountOTPLoginWithOTPToken () {
     var funcname = "oldAccountOTPLoginWithOTPToken"
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
-      abc.localAccountDelete(otpAccountName, function (error) {
-        abc.passwordLogin(otpAccountName, otpAccountPassword, otpAccountOTPToken, callbacks, function (error, account) {
+      abcContext.localAccountDelete(otpAccountName, function (error) {
+        abcContext.passwordLogin(otpAccountName, otpAccountPassword, otpAccountOTPToken, callbacks, function (error, account) {
           if (error || (account.username != otpAccountName))
             reject(funcname) // This is expected to error
           else
@@ -228,15 +229,15 @@ function oldAccountOTPLoginWithOTPToken () {
 
 function accountCreateChangePasswordAndLoginTest () {
   return new Promise(function(resolve, reject) {
-    var funcname = "accountCreateAndLoginTest"
+    var funcname = "accountCreateChangePasswordAndLoginTest"
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
-      abc.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
-        if (error || (myusername != account)) {
+      abcContext.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
+        if (error || (myusername != account.username)) {
           reject(funcname)
         } else {
           account.logout(() => {
-            abc.passwordLogin(myusername, "helloPW001", "", callbacks, (error, account) => {
+            abcContext.passwordLogin(myusername, "helloPW001", "", callbacks, (error, account) => {
               if (error) {
                 reject(funcname)
               } else {
@@ -244,7 +245,7 @@ function accountCreateChangePasswordAndLoginTest () {
                   if (error) reject(funcname)
                   else {
                     account.logout(() => {
-                      abc.passwordLogin(myusername, "helloPW002", "", callbacks, (error, account) => {
+                      abcContext.passwordLogin(myusername, "helloPW002", "", callbacks, (error, account) => {
                         if (error) {
                           reject(funcname)
                         } else {
@@ -266,16 +267,16 @@ function accountCreateChangePasswordAndLoginTest () {
 
 function accountCreateChangePINAndLoginTest () {
   return new Promise(function(resolve, reject) {
-    var funcname = "accountCreateAndLoginTest"
+    var funcname = "accountCreateChangePINAndLoginTest"
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
       var mypinusername = myusername + "-pin"
-      abc.accountCreate(mypinusername, "helloPW001", "1234", callbacks, (error, account) => {
+      abcContext.accountCreate(mypinusername, "helloPW001", "1234", callbacks, (error, account) => {
         if (error || (mypinusername != account.username)) {
           reject(funcname)
         } else {
           account.logout(() => {
-            abc.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
+            abcContext.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
               if (error) {
                 reject(funcname)
               } else {
@@ -283,11 +284,11 @@ function accountCreateChangePINAndLoginTest () {
                   if (error) reject(funcname)
                   else {
                     account.logout(() => {
-                      abc.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
+                      abcContext.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
                         if (!error) {
                           reject(funcname) // This should have failed
                         } else {
-                          abc.pinLogin(mypinusername, "4321", callbacks, (error, account) => {
+                          abcContext.pinLogin(mypinusername, "4321", callbacks, (error, account) => {
                             if (error) {
                               reject(funcname) // This should have failed
                             } else {
@@ -311,11 +312,11 @@ function accountCreateChangePINAndLoginTest () {
 
 function accountCreateChangeOTPTest () {
   return new Promise(function(resolve, reject) {
-    var funcname = "accountCreateAndLoginTest"
+    var funcname = "accountCreateChangeOTPTest"
     if (abcAccount) abcAccount.logout(() => {
       abcAccount = dummyAccount
       var myOTPusername = myusername + "-otp"
-      abc.accountCreate(myOTPusername, "helloPW001", "1234", callbacks, (error, account) => {
+      abcContext.accountCreate(myOTPusername, "helloPW001", "1234", callbacks, (error, account) => {
         if (error || (myOTPusername != account.username)) {
           reject(funcname)
         } else {
@@ -331,14 +332,14 @@ function accountCreateChangeOTPTest () {
                     else {
                       myotpKey = otpKey
                       account.logout(() => {
-                        abc.localAccountDelete(myOTPusername, function (error) {
+                        abcContext.localAccountDelete(myOTPusername, function (error) {
                           if (error) reject(funcname)
                           else {
-                            abc.passwordLogin(myOTPusername, "helloPW001", "", callbacks, (error, account) => {
-                              if (!error || (error.code != 37)) {
+                            abcContext.passwordLogin(myOTPusername, "helloPW001", "", callbacks, (error, account) => {
+                              if (!error || (error.code != abcc.ABCConditionCodeInvalidOTP)) {
                                 reject(funcname)
                               } else {
-                                abc.passwordLogin(myOTPusername, "helloPW001", myotpKey, callbacks, (error, account) => {
+                                abcContext.passwordLogin(myOTPusername, "helloPW001", myotpKey, callbacks, (error, account) => {
                                   if (error || (myOTPusername != account.username)) {
                                     reject(funcname)
                                   } else {
@@ -362,225 +363,5 @@ function accountCreateChangeOTPTest () {
     })
   })
 }
-
-
-function otpEnableTest (account) {
-  abc.otpEnable(otpTimeout, () => {
-    console.log("OTP enable test PASSED")
-
-    abc.otpDetailsGet((otpEnabled, timeout) => {
-      if (timeout === otpTimeout && otpEnabled === true) {
-        console.log("OTP details get test PASSED")
-        abc.otpLocalKeyGet((otpKey) => {
-          console.log("OTP local key get test PASSED")
-          myotpKey = otpKey
-          logoutTest(account)
-        }, (rtcerror) => {
-          console.log("OTP local key get test FAILED")
-        })
-      } else {
-        console.log("OTP details get test FAILED: bad return values")
-      }
-    }, (rtcerror) => {
-      console.log("OTP local key get test FAILED")
-    })
-  }, (rtcerror) => {
-    console.log("OTP enable test FAILED")
-  })
-}
-
-// function callbacksTest() {
-//   for (var i = 0; i < 30; i++) {
-//     if (walletsLoadedCallbackOccurred && walletChangedCallbackOccurred) {
-//       console.log("Callbacks test PASSED")
-//       return;
-//     }
-//     sleep(1000)
-//   }
-//   console.log("Callbacks test FAILED")
-// }
-
-function logoutTest (account) {
-  account.logout(() => {
-    console.log("Logout test PASSED")
-    // otpLoginWithoutOTPTest()
-  })
-}
-
-
-
-
-function accountCreateTest () {
-  abc.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
-    if (account.username === myusername) {
-      account.logout(() => {
-      })
-    } else {
-      console.log("accountCreate test FAILED. Wrong name on create")
-    }
-  }, (error) => {
-    console.log("accountCreate test FAILED")
-  })
-}
-
-function loginTest (username, password) {
-  abc.passwordLogin(username, password, "", callbacks, (account) => {
-    changePasswordTest(account)
-  }, (rtcerror) => {
-    console.log("Password login test FAILED")
-  })
-}
-
-function changePasswordTest(account) {
-  account.changePassword("helloPW002", () => {
-    console.log("Change password PASSED")
-    account.logout(() => {
-      abc.passwordLogin(myusername, "helloPW002","", callbacks, (account) => {
-        account.logout(() => {
-          console.log("Change password relogin PASSED")
-          pinLoginTest()
-        })
-      }, (rtcerror) => {
-        console.log("Change password relogin FAILED")
-      })
-    })
-
-  }, () => {
-    console.log("Change password FAILED")
-  })
-
-}
-
-function pinLoginTest (redo=5) {
-  abc.pinLogin(myusername, "1234", callbacks, (account) => {
-    console.log("pinLogin test PASSED")
-    changePinTest(account)
-
-  }, (rtcerror) => {
-    console.log("pinLogin test FAILED")
-    if (redo) {
-      redo--;
-      sleep(3000)
-      pinLoginTest(redo)
-    }
-
-  })
-}
-
-function changePinTest(account) {
-  account.changePIN("4321", () => {
-    console.log("changePIN test PASSED")
-    account.logout(() => {
-      abc.pinLogin(myusername, "4321", callbacks, (account) => {
-        console.log("Change pin relogin PASSED")
-        checkPasswordTest(account)
-      }, (rtcerror) => {
-        console.log("Change pin relogin FAILED")
-      })
-    })
-
-  }, () => {
-    console.log("changePIN test FAILED")
-  })
-}
-
-function checkPasswordTest(account) {
-  account.checkPassword("helloPW002", (check) => {
-    if (check) {
-      console.log("checkPasswordTest test PASSED")
-      checkWrongPasswordTest(account)
-    } else {
-      console.log("checkPasswordTest test FAILED")
-    }
-  }, (rtcerror) => {
-    console.log("Error: checkPasswordTest test FAILED")
-  })
-
-}
-
-function checkWrongPasswordTest(account) {
-  account.checkPassword("helloPW002wrong", (check) => {
-    if (check) {
-      console.log("checkWrongPasswordTest test FAILED")
-    } else {
-      console.log("checkWrongPasswordTest test PASSED")
-      disablePinLoginTest(account)
-    }
-  }, (rtcerror) => {
-    console.log("Error: checkWrongPasswordTest test FAILED")
-  })
-
-}
-
-
-function disablePinLoginTest(account)
-{
-  account.pinLoginSetup(false, () => {
-    account.logout(() => {
-      abc.pinLogin(myusername, "4321", callbacks, (account) => {
-        console.log("Disable pin relogin FAILED")
-      }, (rtcerror) => {
-        console.log("Disable pin relogin PASSED")
-        createPINOnlyAccountTest()
-      })
-    })
-  }, (rtcerror) => {
-    console.log("changePIN test FAILED")
-  })
-}
-
-
-function createPINOnlyAccountTest() {
-  abc.createAccount(myusername + "pinonly", "", "1234", callbacks, (account) => {
-    console.log("createAccount PIN Only test PASSED")
-    account.logout(() => {
-      hasPasswordTest()
-    })
-  }, (error) => {
-    console.log("createAccount PIN Only test FAILED")
-  })
-}
-
-function hasPasswordTest() {
-  abc.accountHasPassword(myusername, (hasPassword) => {
-    if (hasPassword) {
-      console.log("hasPasswordTest test PASSED")
-      hasNoPasswordTest()
-    } else {
-      console.log("hasPasswordTest test FAILED")
-    }
-  }, (rtcerror) => {
-    console.log("Error: hasPasswordTest test FAILED")
-  })
-}
-
-function hasNoPasswordTest() {
-  abc.accountHasPassword(myusername + "pinonly", (hasPassword) => {
-    if (hasPassword) {
-      console.log("hasNoPasswordTest test FAILED")
-    } else {
-      console.log("hasNoPasswordTest test PASSED")
-      pinOnlyLoginTest()
-    }
-  }, (rtcerror) => {
-    console.log("Error: hasNoPasswordTest test FAILED")
-  })
-}
-
-
-function pinOnlyLoginTest(redo=5) {
-  abc.pinLogin(myusername + "pinonly", "1234", callbacks, (account) => {
-    console.log("PIN only Login test PASSED")
-  }, (rtcerror) => {
-    console.log("PIN only Login test FAILED")
-    if (redo) {
-      redo--;
-      sleep(3000)
-      pinOnlyLoginTest(redo)
-    }
-  })
-}
-
-
 
 module.exports.BeginTests = BeginTests
