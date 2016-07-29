@@ -65,10 +65,19 @@ function makeID()
   return text;
 }
 
+class DummyAccount {
+  logout (callback) {
+    callback()
+  }
+}
+
 var myusername = ""
 var otpTimeout = 10
 var myotpKey
-var abcAccount
+
+var dummyAccount = new DummyAccount()
+
+var abcAccount = dummyAccount
 
 function testEval (name, passed) {
   if (passed) {
@@ -86,50 +95,45 @@ function BeginTests()
 
   console.log("Initializing...")
 
-  runTestsAsync().then((passed) => {
-    if (passed)
-      console.log(`*** ALL TESTS PASSED ***`)
-    else
-      console.log(`*** TEST FAILED ***`)
-  });
+  runTestsAsync()
 }
 
-function testPass(funcname) {
-  console.log(funcname + "test PASSED")
+function allTestsPass() {
+  console.log(`*** ALL TESTS PASSED ***`)
   return true
 }
 
-function testFail(funcname) {
-  console.log(funcname + "test FAILED")
+function testPass(funcname) {
+  console.log(funcname + " PASSED")
+  return true
+}
+
+function testFail(funcname, message) {
+  if (message)
+    console.log(funcname + " FAILED. " + message)
+  else
+    console.log(funcname + " FAILED")
+
   return false
 }
 
-async function runTestsAsync () {
-  var value = await makeABCContextTest().then(testPass, testFail)
-  if (value === false) {
-    console.log("Error initializing ABCContext. May already be initialized")
-  }
-
-  var value = await oldAccountNewDeviceLoginTest().then(testPass, testFail)
-  if (value === false) return false
-
-  var value = await oldAccountNewDevicePINLoginTest().then(testPass, testFail)
-  if (value === false) return false
-
-  var value = await oldAccountOTPLoginWithoutOTPToken().then(testPass, testFail)
-  if (value === false) return false
-
-  var value = await oldAccountOTPLoginWithOTPToken().then(testPass, testFail)
-  if (value === false) return false
-
-  return true;
+function runTestsAsync () {
+  makeABCContextTest().then(testPass)
+    .then(oldAccountNewDeviceLoginTest).then(testPass)
+    .then(oldAccountNewDevicePINLoginTest).then(testPass)
+    .then(oldAccountOTPLoginWithoutOTPToken).then(testPass)
+    .then(oldAccountOTPLoginWithOTPToken).then(testPass)
+    .then(accountCreateChangePINAndLoginTest).then(testPass)
+    .then(accountCreateChangePasswordAndLoginTest).then(testPass)
+    .then(accountCreateChangeOTPTest).then(testPass)
+    .then(allTestsPass,testFail)
 }
 
 function makeABCContextTest() {
   return new Promise(function(resolve, reject) {
     var funcname = "makeABCContextTest"
     abc.makeABCContext('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', function (error) {
-      if (error && error != 23) {
+      if (error && error.code != 23) {
         reject(funcname)
       } else {
         resolve(funcname)
@@ -141,17 +145,21 @@ function makeABCContextTest() {
 function oldAccountNewDeviceLoginTest () {
   var funcname = "oldAccountNewDeviceLoginTest"
   return new Promise(function(resolve, reject) {
-    abc.localAccountDelete(oldAccountName, function (error) {
-      if (error) reject(funcname)
-      else {
-        abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
-          if (error || (oldAccountName != account.name)) {
-            reject(funcname)
-          } else {
-            resolve(funcname)
-          }
-        })
-      }
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      abc.localAccountDelete(oldAccountName, function (error) {
+        if (error) reject(funcname)
+        else {
+          abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
+            if (error || (oldAccountName != account.username)) {
+              reject(funcname)
+            } else {
+              abcAccount = account
+              resolve(funcname)
+            }
+          })
+        }
+      })
     })
   })
 }
@@ -159,16 +167,24 @@ function oldAccountNewDeviceLoginTest () {
 function oldAccountNewDevicePINLoginTest () {
   return new Promise(function(resolve, reject) {
     var funcname = "oldAccountNewDevicePINLoginTest"
-    abc.localAccountDelete(oldAccountName, function (error) {
-      abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
-        if (error) reject(funcname)
-        else {
-          sleep(5000)
-          abc.pinLogin(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
-            if (error) reject(funcname)
-            else resolve(funcname)
-          })
-        }
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      abc.localAccountDelete(oldAccountName, function (error) {
+        abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
+          if (error) reject(funcname)
+          else {
+            sleep(5000)
+            account.logout(() => {
+              abc.pinLogin(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
+                if (error) reject(funcname)
+                else {
+                  abcAccount = account
+                  resolve(funcname)
+                }
+              })
+            })
+          }
+        })
       })
     })
   })
@@ -177,10 +193,16 @@ function oldAccountNewDevicePINLoginTest () {
 function oldAccountOTPLoginWithoutOTPToken () {
   return new Promise(function(resolve, reject) {
     var funcname = "oldAccountOTPLoginWithoutOTPToken"
-    abc.localAccountDelete(otpAccountName, function (error) {
-      abc.passwordLogin(otpAccountName, otpAccountPassword, "", callbacks, function (error, account) {
-        if (error) resolve(funcname) // This is expected to error
-        else reject(funcname)
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      abc.localAccountDelete(otpAccountName, function (error) {
+        abc.passwordLogin(otpAccountName, otpAccountPassword, "", callbacks, function (error, account) {
+          if (error) {
+            abcAccount = account
+            resolve(funcname)
+          } // This is expected to error
+          else reject(funcname)
+        })
       })
     })
   })
@@ -189,42 +211,183 @@ function oldAccountOTPLoginWithoutOTPToken () {
 function oldAccountOTPLoginWithOTPToken () {
   return new Promise(function(resolve, reject) {
     var funcname = "oldAccountOTPLoginWithOTPToken"
-    abc.localAccountDelete(otpAccountName, function (error) {
-      abc.passwordLogin(otpAccountName, otpAccountPassword, otpAccountOTPToken, callbacks, function (error, account) {
-        if (error || (account.name != otpAccountName))
-          reject(funcname) // This is expected to error
-        else
-          resolve(funcname)
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      abc.localAccountDelete(otpAccountName, function (error) {
+        abc.passwordLogin(otpAccountName, otpAccountPassword, otpAccountOTPToken, callbacks, function (error, account) {
+          if (error || (account.username != otpAccountName))
+            reject(funcname) // This is expected to error
+          else
+            abcAccount = account
+            resolve(funcname)
+        })
+      })
+    })
+  })
+}
+
+function accountCreateChangePasswordAndLoginTest () {
+  return new Promise(function(resolve, reject) {
+    var funcname = "accountCreateAndLoginTest"
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      abc.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
+        if (error || (myusername != account)) {
+          reject(funcname)
+        } else {
+          account.logout(() => {
+            abc.passwordLogin(myusername, "helloPW001", "", callbacks, (error, account) => {
+              if (error) {
+                reject(funcname)
+              } else {
+                account.passwordSet("helloPW002", (error) => {
+                  if (error) reject(funcname)
+                  else {
+                    account.logout(() => {
+                      abc.passwordLogin(myusername, "helloPW002", "", callbacks, (error, account) => {
+                        if (error) {
+                          reject(funcname)
+                        } else {
+                          abcAccount = account
+                          resolve(funcname)
+                        }
+                      })
+                    })
+                  }
+                })
+              }
+            })
+          })
+        }
+      })
+    })
+  })
+}
+
+function accountCreateChangePINAndLoginTest () {
+  return new Promise(function(resolve, reject) {
+    var funcname = "accountCreateAndLoginTest"
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      var mypinusername = myusername + "-pin"
+      abc.accountCreate(mypinusername, "helloPW001", "1234", callbacks, (error, account) => {
+        if (error || (mypinusername != account.username)) {
+          reject(funcname)
+        } else {
+          account.logout(() => {
+            abc.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
+              if (error) {
+                reject(funcname)
+              } else {
+                account.pinSet("4321", (error) => {
+                  if (error) reject(funcname)
+                  else {
+                    account.logout(() => {
+                      abc.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
+                        if (!error) {
+                          reject(funcname) // This should have failed
+                        } else {
+                          abc.pinLogin(mypinusername, "4321", callbacks, (error, account) => {
+                            if (error) {
+                              reject(funcname) // This should have failed
+                            } else {
+                              abcAccount = account
+                              resolve(funcname)
+                            }
+                          })
+                        }
+                      })
+                    })
+                  }
+                })
+              }
+            })
+          })
+        }
+      })
+    })
+  })
+}
+
+function accountCreateChangeOTPTest () {
+  return new Promise(function(resolve, reject) {
+    var funcname = "accountCreateAndLoginTest"
+    if (abcAccount) abcAccount.logout(() => {
+      abcAccount = dummyAccount
+      var myOTPusername = myusername + "-otp"
+      abc.accountCreate(myOTPusername, "helloPW001", "1234", callbacks, (error, account) => {
+        if (error || (myOTPusername != account.username)) {
+          reject(funcname)
+        } else {
+          account.otpEnable(otpTimeout, (error) => {
+            if (error) reject(funcname)
+            else {
+              account.otpDetailsGet((error, otpEnabled, timeout) => {
+                if (error) reject(funcname)
+                else if (!(timeout === otpTimeout && otpEnabled === true)) reject(funcname)
+                else {
+                  account.otpLocalKeyGet((error, otpKey) => {
+                    if (error) reject(funcname)
+                    else {
+                      myotpKey = otpKey
+                      account.logout(() => {
+                        abc.localAccountDelete(myOTPusername, function (error) {
+                          if (error) reject(funcname)
+                          else {
+                            abc.passwordLogin(myOTPusername, "helloPW001", "", callbacks, (error, account) => {
+                              if (!error || (error.code != 37)) {
+                                reject(funcname)
+                              } else {
+                                abc.passwordLogin(myOTPusername, "helloPW001", myotpKey, callbacks, (error, account) => {
+                                  if (error || (myOTPusername != account.username)) {
+                                    reject(funcname)
+                                  } else {
+                                    abcAccount = account
+                                    resolve(funcname)
+                                  }
+                                })
+                              }
+                            })
+                          }
+                        })
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
       })
     })
   })
 }
 
 
-// function otpEnableTest (account) {
-//   abc.otpEnable(otpTimeout, () => {
-//     console.log("OTP enable test PASSED")
-//
-//     abc.otpDetailsGet((otpEnabled, timeout) => {
-//       if (timeout === otpTimeout && otpEnabled === true) {
-//         console.log("OTP details get test PASSED")
-//         abc.otpLocalKeyGet((otpKey) => {
-//           console.log("OTP local key get test PASSED")
-//           myotpKey = otpKey
-//           logoutTest(account)
-//         }, (rtcerror) => {
-//           console.log("OTP local key get test FAILED")
-//         })
-//       } else {
-//         console.log("OTP details get test FAILED: bad return values")
-//       }
-//     }, (rtcerror) => {
-//       console.log("OTP local key get test FAILED")
-//     })
-//   }, (rtcerror) => {
-//     console.log("OTP enable test FAILED")
-//   })
-// }
+function otpEnableTest (account) {
+  abc.otpEnable(otpTimeout, () => {
+    console.log("OTP enable test PASSED")
+
+    abc.otpDetailsGet((otpEnabled, timeout) => {
+      if (timeout === otpTimeout && otpEnabled === true) {
+        console.log("OTP details get test PASSED")
+        abc.otpLocalKeyGet((otpKey) => {
+          console.log("OTP local key get test PASSED")
+          myotpKey = otpKey
+          logoutTest(account)
+        }, (rtcerror) => {
+          console.log("OTP local key get test FAILED")
+        })
+      } else {
+        console.log("OTP details get test FAILED: bad return values")
+      }
+    }, (rtcerror) => {
+      console.log("OTP local key get test FAILED")
+    })
+  }, (rtcerror) => {
+    console.log("OTP enable test FAILED")
+  })
+}
 
 // function callbacksTest() {
 //   for (var i = 0; i < 30; i++) {
@@ -245,47 +408,11 @@ function logoutTest (account) {
 }
 
 
-// function otpLoginWithoutOTPTest (account) {
-//   abc.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, (account) => {
-//     changePasswordTest(account)
-//   }, (rtcerror) => {
-//     console.log("Password login test FAILED")
-//   })
-// }
-
-function accountCreateAndLoginTest () {
-  return new Promise(function(resolve, reject) {
-    var funcname = "accountCreateAndLoginTest"
-    abc.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
-      if (error) {
-        resolve(testEval(funcname, false))
-      } else {
-        account.logout(() => {
-          abc.passwordLogin(myusername, "helloPW001", "", callbacks, (error, account) => {
-            if (error) {
-              resolve(testEval(funcname, false))
-            } else {
-              account.logout(() => {
-                abc.pinLogin(myusername, "1234", callbacks, (error, account) => {
-                  if (error) {
-                    resolve(testEval(funcname, false))
-                  } else {
-                    resolve(testEval(funcname, true))
-                  }
-                })
-              })
-            }
-          })
-        })
-      }
-    })
-  })
-}
 
 
 function accountCreateTest () {
   abc.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
-    if (account.name === myusername) {
+    if (account.username === myusername) {
       account.logout(() => {
       })
     } else {
