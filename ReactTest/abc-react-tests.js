@@ -122,6 +122,7 @@ function testFail(funcname, message) {
 function runTestsAsync () {
   makeABCContextTest().then(testPass)
     .then(checkAccountDoesntExist).then(testPass)
+    .then(oldAccountCheckBitIDSignature).then(testPass)
     .then(oldAccountNewDeviceLoginTest).then(testPass)
     .then(oldAccountNewDevicePINLoginTest).then(testPass)
     .then(oldAccountOTPLoginWithoutOTPToken).then(testPass)
@@ -136,7 +137,7 @@ function runTestsAsync () {
 function makeABCContextTest() {
   return new Promise(function(resolve, reject) {
     var funcname = "makeABCContextTest"
-    abc.makeABCContext('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', function (error, context) {
+    abc.ABCContext.makeABCContext('572d3e23e632ebfcd5c4ad6390b83a01a5d4007b', 'hbits', function (error, context) {
       if (error && error.code != abcc.ABCConditionCodeReinitialization) {
         reject(funcname)
       } else {
@@ -150,55 +151,78 @@ function makeABCContextTest() {
 function checkAccountDoesntExist () {
   var funcname = "checkAccountDoesntExist"
   return new Promise(function(resolve, reject) {
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.usernameAvailable(noexistusername, function (error, available) {
-        if (error || !available) reject(funcname)
-        else {
-          abcContext.usernameList(function (error, usernames) {
-            if (error) reject(funcname)
+    abcContext.usernameAvailable(noexistusername, function (error, available) {
+      if (error || !available) reject(funcname)
+      else {
+        abcContext.listUsernames(function (error, usernames) {
+          if (error) reject(funcname)
+          else {
+            if (usernames.indexOf(noexistusername) >= 0) reject(funcname)
             else {
-              if (usernames.indexOf(noexistusername) >= 0) reject(funcname)
-              else {
-                abcContext.usernameAvailable(oldAccountName, function (error, available) {
-                  if (error || available) reject(funcname)
-                  else {
-                    resolve(funcname)
-                  }
-                })
-              }
+              abcContext.usernameAvailable(oldAccountName, function (error, available) {
+                if (error || available) reject(funcname)
+                else {
+                  resolve(funcname)
+                }
+              })
             }
-          })
-        }
-      })
+          }
+        })
+      }
     })
   })
 }
 
+var bitIDUrl = "bitid://airbitz.co/developer?nonce=12345"
+var bitIDAddress = "1KUNirYYijbgYJnBEtPNePibkCHswzjXjN"
+var bitIDSig = "H76W1HRnB1XsdQOFvDbAkWMq3vqxdWL9BbaIumQwgGLzN9D+PuEQ8/xr0CNx8vlRQ4bvEXrPMc8hvl80DzcdY4M="
+
+function oldAccountCheckBitIDSignature () {
+  var funcname = "oldAccountCheckBitIDSignature"
+  return new Promise(function(resolve, reject) {
+    abcContext.loginWithPassword(oldAccountName, oldAccountPassword, null, callbacks, function (error, account) {
+      if (error) {
+        reject(funcname)
+      } else {
+        account.signBitIDRequest(bitIDUrl, "Hello World", function (error, address, signature) {
+          if (error) reject(funcname)
+          else {
+            if (address !== bitIDAddress || signature !== bitIDSig)
+              reject(funcname)
+            else
+              account.logout(function () {
+                resolve(funcname)
+              })
+          }
+        })
+      }
+    })
+  })
+}
 
 function oldAccountNewDeviceLoginTest () {
   var funcname = "oldAccountNewDeviceLoginTest"
   return new Promise(function(resolve, reject) {
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.localAccountDelete(oldAccountName, function (error) {
+      abcContext.deleteLocalAccount(oldAccountName, function (error) {
         if (error && (error.code != abcc.ABCConditionCodeFileDoesNotExist)) {
-          reject(funcname, "localAccountDelete")
+          reject(funcname, "deleteLocalAccount")
         } else {
-          abcContext.passwordLogin(oldAccountName, oldAccountPassword, null, callbacks, function (error, account) {
+          abcContext.loginWithPassword(oldAccountName, oldAccountPassword, null, callbacks, function (error, account) {
             if (error) {
-              reject(funcname, "passwordLogin: " + error.message)
+              reject(funcname, "loginWithPassword: " + error.message)
             } else if((oldAccountName != account.username)) {
               reject(funcname, "mismatch account names")
             } else {
-              abcContext.usernameList(function (error, usernames) {
+              abcContext.listUsernames(function (error, usernames) {
                 if (error) {
-                  reject(funcname, "usernameList error")
+                  reject(funcname, "listUsernames error")
                 } else {
                   if (usernames.indexOf(oldAccountName) < 0) {
                     reject(funcname, "oldAccountName not in device")
                   } else {
-                    resolve(funcname)
+                    account.logout(function () {
+                      resolve(funcname)
+                    })
                   }
                 }
               })
@@ -206,31 +230,28 @@ function oldAccountNewDeviceLoginTest () {
           })
         }
       })
-    })
   })
 }
 
 function oldAccountNewDevicePINLoginTest () {
   return new Promise(function(resolve, reject) {
     var funcname = "oldAccountNewDevicePINLoginTest"
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.localAccountDelete(oldAccountName, function (error) {
-        abcContext.passwordLogin(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
-          if (error) reject(funcname)
-          else {
-            sleep(5000)
-            account.logout(() => {
-              abcContext.pinLogin(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
-                if (error) reject(funcname)
-                else {
-                  abcAccount = account
+    abcContext.deleteLocalAccount(oldAccountName, function (error) {
+      abcContext.loginWithPassword(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
+        if (error) reject(funcname)
+        else {
+          sleep(5000)
+          account.logout(() => {
+            abcContext.loginWithPIN(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
+              if (error) reject(funcname)
+              else {
+                account.logout(function () {
                   resolve(funcname)
-                }
-              })
+                })
+              }
             })
-          }
-        })
+          })
+        }
       })
     })
   })
@@ -239,16 +260,14 @@ function oldAccountNewDevicePINLoginTest () {
 function oldAccountOTPLoginWithoutOTPToken () {
   return new Promise(function(resolve, reject) {
     var funcname = "oldAccountOTPLoginWithoutOTPToken"
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.localAccountDelete(otpAccountName, function (error) {
-        abcContext.passwordLogin(otpAccountName, otpAccountPassword, null, callbacks, function (error, account) {
-          if (error) {
-            abcAccount = account
+    abcContext.deleteLocalAccount(otpAccountName, function (error) {
+      abcContext.loginWithPassword(otpAccountName, otpAccountPassword, null, callbacks, function (error, account) {
+        if (error) {
+          account.logout(function () {
             resolve(funcname)
-          } // This is expected to error
-          else reject(funcname)
-        })
+          })
+        } // This is expected to error
+        else reject(funcname)
       })
     })
   })
@@ -257,16 +276,14 @@ function oldAccountOTPLoginWithoutOTPToken () {
 function oldAccountOTPLoginWithOTPToken () {
   return new Promise(function(resolve, reject) {
     var funcname = "oldAccountOTPLoginWithOTPToken"
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.localAccountDelete(otpAccountName, function (error) {
-        abcContext.passwordLogin(otpAccountName, otpAccountPassword, otpAccountOTPToken, callbacks, function (error, account) {
-          if (error || (account.username != otpAccountName))
-            reject(funcname) // This is expected to error
-          else
-            abcAccount = account
+    abcContext.deleteLocalAccount(otpAccountName, function (error) {
+      abcContext.loginWithPassword(otpAccountName, otpAccountPassword, otpAccountOTPToken, callbacks, function (error, account) {
+        if (error || (account.username != otpAccountName))
+          reject(funcname) // This is expected to error
+        else
+          account.logout(function () {
             resolve(funcname)
-        })
+          })
       })
     })
   })
@@ -280,52 +297,52 @@ var dataStoreTestValue = "testFolderValue"
 function oldAccountDataStoreTest () {
   var funcname = "oldAccountDataStoreTest"
   return new Promise(function(resolve, reject) {
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.localAccountDelete(oldAccountName, function (error) {
-        if (error && (error.code != abcc.ABCConditionCodeFileDoesNotExist)) reject(funcname)
-        else {
-          abcContext.passwordLogin(oldAccountName, oldAccountPassword, null, callbacks, function (error, account) {
-            if (error || (oldAccountName != account.username)) {
-              reject(funcname)
-            } else {
-              abcAccount = account
-              abcAccount.dataStore.dataRemoveFolder(dataStoreTestFolder, function (error) {
-                if (error) reject(funcname)
-                else {
-                  abcAccount.dataStore.dataWrite(dataStoreTestFolder, dataStoreTestKey, dataStoreTestValue, function (error) {
-                    if (error) reject(funcname)
-                    else {
-                      abcAccount.dataStore.dataRead(dataStoreTestFolder, dataStoreTestKey, function (error, data) {
-                        if (error || (data != dataStoreTestValue)) reject(funcname)
-                        else {
-                          abcAccount.dataStore.dataWrite(dataStoreTestFolder, dataStoreTestKey2, dataStoreTestValue, function (error) {
-                            if (error) reject(funcname)
-                            else {
-                              abcAccount.dataStore.dataListKeys(dataStoreTestFolder, function (error, keys) {
-                                if (error) reject(funcname)
-                                else {
-                                  if (keys.length != 2)
-                                    reject(funcname)
-                                  else if (keys.indexOf(dataStoreTestKey) < 0)
-                                    reject(funcname)
-                                  else if (keys.indexOf(dataStoreTestKey2) < 0)
-                                    reject(funcname)
-                                  resolve(funcname)
-                                }
-                              })
-                            }
-                          })
-                        }
-                      })
-                    }
-                  })
-                }
-              })
-            }
-          })
-        }
-      })
+    abcContext.deleteLocalAccount(oldAccountName, function (error) {
+      if (error && (error.code != abcc.ABCConditionCodeFileDoesNotExist)) reject(funcname)
+      else {
+        abcContext.loginWithPassword(oldAccountName, oldAccountPassword, null, callbacks, function (error, account) {
+          if (error || (oldAccountName != account.username)) {
+            reject(funcname)
+          } else {
+            abcAccount = account
+            abcAccount.dataStore.removeDataFolder(dataStoreTestFolder, function (error) {
+              if (error) reject(funcname)
+              else {
+                abcAccount.dataStore.writeData(dataStoreTestFolder, dataStoreTestKey, dataStoreTestValue, function (error) {
+                  if (error) reject(funcname)
+                  else {
+                    abcAccount.dataStore.readData(dataStoreTestFolder, dataStoreTestKey, function (error, data) {
+                      if (error || (data != dataStoreTestValue)) reject(funcname)
+                      else {
+                        abcAccount.dataStore.writeData(dataStoreTestFolder, dataStoreTestKey2, dataStoreTestValue, function (error) {
+                          if (error) reject(funcname)
+                          else {
+                            abcAccount.dataStore.listDataKeys(dataStoreTestFolder, function (error, keys) {
+                              if (error) reject(funcname)
+                              else {
+                                if (keys.length != 2)
+                                  reject(funcname)
+                                else if (keys.indexOf(dataStoreTestKey) < 0)
+                                  reject(funcname)
+                                else if (keys.indexOf(dataStoreTestKey2) < 0)
+                                  reject(funcname)
+                                else
+                                  account.logout(function () {
+                                    resolve(funcname)
+                                  })
+                              }
+                            })
+                          }
+                        })
+                      }
+                    })
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
     })
   })
 }
@@ -334,37 +351,35 @@ function oldAccountDataStoreTest () {
 function accountCreateChangePasswordAndLoginTest () {
   return new Promise(function(resolve, reject) {
     var funcname = "accountCreateChangePasswordAndLoginTest"
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      abcContext.accountCreate(myusername, "helloPW001", "1234", callbacks, (error, account) => {
-        if (error || (myusername != account.username)) {
-          reject(funcname)
-        } else {
-          account.logout(() => {
-            abcContext.passwordLogin(myusername, "helloPW001", null, callbacks, (error, account) => {
-              if (error) {
-                reject(funcname)
-              } else {
-                account.passwordSet("helloPW002", (error) => {
-                  if (error) reject(funcname)
-                  else {
-                    account.logout(() => {
-                      abcContext.passwordLogin(myusername, "helloPW002", null, callbacks, (error, account) => {
-                        if (error) {
-                          reject(funcname)
-                        } else {
-                          abcAccount = account
+    abcContext.createAccount(myusername, "helloPW001", "1234", callbacks, (error, account) => {
+      if (error || (myusername != account.username)) {
+        reject(funcname)
+      } else {
+        account.logout(() => {
+          abcContext.loginWithPassword(myusername, "helloPW001", null, callbacks, (error, account) => {
+            if (error) {
+              reject(funcname)
+            } else {
+              account.setPassword("helloPW002", (error) => {
+                if (error) reject(funcname)
+                else {
+                  account.logout(() => {
+                    abcContext.loginWithPassword(myusername, "helloPW002", null, callbacks, (error, account) => {
+                      if (error) {
+                        reject(funcname)
+                      } else {
+                        account.logout(function () {
                           resolve(funcname)
-                        }
-                      })
+                        })
+                      }
                     })
-                  }
-                })
-              }
-            })
+                  })
+                }
+              })
+            }
           })
-        }
-      })
+        })
+      }
     })
   })
 }
@@ -372,32 +387,82 @@ function accountCreateChangePasswordAndLoginTest () {
 function accountCreateChangePINAndLoginTest () {
   return new Promise(function(resolve, reject) {
     var funcname = "accountCreateChangePINAndLoginTest"
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      var mypinusername = myusername + "-pin"
-      abcContext.accountCreate(mypinusername, "helloPW001", "1234", callbacks, (error, account) => {
-        if (error || (mypinusername != account.username)) {
-          reject(funcname)
-        } else {
-          account.logout(() => {
-            abcContext.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
-              if (error) {
-                reject(funcname)
-              } else {
-                account.pinSet("4321", (error) => {
+    var mypinusername = myusername + "-pin"
+    abcContext.createAccount(mypinusername, "helloPW001", "1234", callbacks, (error, account) => {
+      if (error || (mypinusername != account.username)) {
+        reject(funcname)
+      } else {
+        account.logout(() => {
+          abcContext.loginWithPIN(mypinusername, "1234", callbacks, (error, account) => {
+            if (error) {
+              reject(funcname)
+            } else {
+              account.setPIN("4321", (error) => {
+                if (error) reject(funcname)
+                else {
+                  account.logout(() => {
+                    abcContext.loginWithPIN(mypinusername, "1234", callbacks, (error, account) => {
+                      if (!error) {
+                        reject(funcname) // This should have failed
+                      } else {
+                        abcContext.loginWithPIN(mypinusername, "4321", callbacks, (error, account) => {
+                          if (error) {
+                            reject(funcname) // This should have failed
+                          } else {
+                            account.logout(function () {
+                              resolve(funcname)
+                            })
+                          }
+                        })
+                      }
+                    })
+                  })
+                }
+              })
+            }
+          })
+        })
+      }
+    })
+  })
+}
+
+function accountCreateChangeOTPTest () {
+  return new Promise(function(resolve, reject) {
+    var funcname = "accountCreateChangeOTPTest"
+    var myOTPusername = myusername + "-otp"
+    abcContext.createAccount(myOTPusername, "helloPW001", "1234", callbacks, (error, account) => {
+      if (error || (myOTPusername != account.username)) {
+        reject(funcname)
+      } else {
+        account.enableOTP(otpTimeout, (error) => {
+          if (error) reject(funcname)
+          else {
+            account.getOTPDetails((error, otpEnabled, timeout) => {
+              if (error) reject(funcname)
+              else if (!(timeout === otpTimeout && otpEnabled === true)) reject(funcname)
+              else {
+                account.getOTPLocalKey((error, otpKey) => {
                   if (error) reject(funcname)
                   else {
+                    myotpKey = otpKey
                     account.logout(() => {
-                      abcContext.pinLogin(mypinusername, "1234", callbacks, (error, account) => {
-                        if (!error) {
-                          reject(funcname) // This should have failed
-                        } else {
-                          abcContext.pinLogin(mypinusername, "4321", callbacks, (error, account) => {
-                            if (error) {
-                              reject(funcname) // This should have failed
+                      abcContext.deleteLocalAccount(myOTPusername, function (error) {
+                        if (error) reject(funcname)
+                        else {
+                          abcContext.loginWithPassword(myOTPusername, "helloPW001", null, callbacks, (error, account) => {
+                            if (!error || (error.code != abcc.ABCConditionCodeInvalidOTP)) {
+                              reject(funcname)
                             } else {
-                              abcAccount = account
-                              resolve(funcname)
+                              abcContext.loginWithPassword(myOTPusername, "helloPW001", myotpKey, callbacks, (error, account) => {
+                                if (error || (myOTPusername != account.username)) {
+                                  reject(funcname)
+                                } else {
+                                  account.logout(function () {
+                                    resolve(funcname)
+                                  })
+                                }
+                              })
                             }
                           })
                         }
@@ -407,63 +472,9 @@ function accountCreateChangePINAndLoginTest () {
                 })
               }
             })
-          })
-        }
-      })
-    })
-  })
-}
-
-function accountCreateChangeOTPTest () {
-  return new Promise(function(resolve, reject) {
-    var funcname = "accountCreateChangeOTPTest"
-    if (abcAccount) abcAccount.logout(() => {
-      abcAccount = dummyAccount
-      var myOTPusername = myusername + "-otp"
-      abcContext.accountCreate(myOTPusername, "helloPW001", "1234", callbacks, (error, account) => {
-        if (error || (myOTPusername != account.username)) {
-          reject(funcname)
-        } else {
-          account.otpEnable(otpTimeout, (error) => {
-            if (error) reject(funcname)
-            else {
-              account.otpDetailsGet((error, otpEnabled, timeout) => {
-                if (error) reject(funcname)
-                else if (!(timeout === otpTimeout && otpEnabled === true)) reject(funcname)
-                else {
-                  account.otpLocalKeyGet((error, otpKey) => {
-                    if (error) reject(funcname)
-                    else {
-                      myotpKey = otpKey
-                      account.logout(() => {
-                        abcContext.localAccountDelete(myOTPusername, function (error) {
-                          if (error) reject(funcname)
-                          else {
-                            abcContext.passwordLogin(myOTPusername, "helloPW001", null, callbacks, (error, account) => {
-                              if (!error || (error.code != abcc.ABCConditionCodeInvalidOTP)) {
-                                reject(funcname)
-                              } else {
-                                abcContext.passwordLogin(myOTPusername, "helloPW001", myotpKey, callbacks, (error, account) => {
-                                  if (error || (myOTPusername != account.username)) {
-                                    reject(funcname)
-                                  } else {
-                                    abcAccount = account
-                                    resolve(funcname)
-                                  }
-                                })
-                              }
-                            })
-                          }
-                        })
-                      })
-                    }
-                  })
-                }
-              })
-            }
-          })
-        }
-      })
+          }
+        })
+      }
     })
   })
 }
