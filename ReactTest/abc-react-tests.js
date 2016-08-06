@@ -121,12 +121,12 @@ function testFail(funcname, message) {
 
 function runTestsAsync () {
   makeABCContextTest().then(testPass)
-    .then(checkAccountDoesntExist).then(testPass)
-    .then(oldAccountCheckBitIDSignature).then(testPass)
-    .then(oldAccountNewDeviceLoginTest).then(testPass)
-    .then(oldAccountNewDevicePINLoginTest).then(testPass)
-    .then(oldAccountOTPLoginWithoutOTPToken).then(testPass)
-    .then(oldAccountOTPLoginWithOTPToken).then(testPass)
+    // .then(checkAccountDoesntExist).then(testPass)
+    // .then(oldAccountCheckBitIDSignature).then(testPass)
+    // .then(oldAccountNewDeviceLoginTest).then(testPass)
+    // .then(oldAccountNewDevicePINLoginTest).then(testPass)
+    // .then(oldAccountOTPLoginWithoutOTPToken).then(testPass)
+    // .then(oldAccountOTPLoginWithOTPToken).then(testPass)
     .then(accountCreateChangePINAndLoginTest).then(testPass)
     .then(accountCreateChangePasswordAndLoginTest).then(testPass)
     .then(accountCreateChangeOTPTest).then(testPass)
@@ -360,7 +360,7 @@ function accountCreateChangePasswordAndLoginTest () {
             if (error) {
               reject(funcname)
             } else {
-              account.setPassword("helloPW002", (error) => {
+              account.changePassword("helloPW002", (error) => {
                 if (error) reject(funcname)
                 else {
                   account.logout(() => {
@@ -397,7 +397,7 @@ function accountCreateChangePINAndLoginTest () {
             if (error) {
               reject(funcname)
             } else {
-              account.setPIN("4321", (error) => {
+              account.changePIN("4321", (error) => {
                 if (error) reject(funcname)
                 else {
                   account.logout(() => {
