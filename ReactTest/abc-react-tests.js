@@ -121,12 +121,12 @@ function testFail(funcname, message) {
 
 function runTestsAsync () {
   makeABCContextTest().then(testPass)
-    // .then(checkAccountDoesntExist).then(testPass)
-    // .then(oldAccountCheckBitIDSignature).then(testPass)
-    // .then(oldAccountNewDeviceLoginTest).then(testPass)
-    // .then(oldAccountNewDevicePINLoginTest).then(testPass)
-    // .then(oldAccountOTPLoginWithoutOTPToken).then(testPass)
-    // .then(oldAccountOTPLoginWithOTPToken).then(testPass)
+    .then(checkAccountDoesntExist).then(testPass)
+    .then(oldAccountCheckBitIDSignature).then(testPass)
+    .then(oldAccountNewDeviceLoginTest).then(testPass)
+    .then(oldAccountNewDevicePINLoginTest).then(testPass)
+    .then(oldAccountOTPLoginWithoutOTPToken).then(testPass)
+    .then(oldAccountOTPLoginWithOTPToken).then(testPass)
     .then(accountCreateChangePINAndLoginTest).then(testPass)
     .then(accountCreateChangePasswordAndLoginTest).then(testPass)
     .then(accountCreateChangeOTPTest).then(testPass)
@@ -184,10 +184,10 @@ function oldAccountCheckBitIDSignature () {
       if (error) {
         reject(funcname)
       } else {
-        account.signBitIDRequest(bitIDUrl, "Hello World", function (error, address, signature) {
+        account.signBitIDRequest(bitIDUrl, "Hello World", function (error, abcSignature) {
           if (error) reject(funcname)
           else {
-            if (address !== bitIDAddress || signature !== bitIDSig)
+            if (abcSignature.address !== bitIDAddress || abcSignature.signature !== bitIDSig)
               reject(funcname)
             else
               account.logout(function () {
