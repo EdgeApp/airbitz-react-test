@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-class ReactTest extends Component {
+class airbitzreacttest extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ReactTest', () => ReactTest);
+AppRegistry.registerComponent('airbitzreacttest', () => airbitzreacttest);
 
 var abcTests = require("./abc-react-tests.js")
 
