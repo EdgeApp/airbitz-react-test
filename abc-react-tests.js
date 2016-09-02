@@ -48,6 +48,52 @@ var otpAccountOTPToken = "RFC3SA2TKX2RJM5F"
 //   console.log("walletsLoadedCallbackOccurred")
 // }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
+
+
+var airbitzreacttest = React.createClass({
+  getInitialState() {
+    content: ''
+  },
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to Airbitz Core React Native Tests!
+        </Text>
+        <Text style={styles.instructions}>
+          Double tap R on your keyboard to reload,{'\n'}
+          Shake or press menu button for dev menu
+        </Text>
+        <text>
+          {this.state.content}
+        </text>
+      </View>
+    )
+  },
+  componentDidMount () {
+    BeginTests()
+  }
+})
+
+
 function sleep( sleepDuration ){
   var now = new Date().getTime();
   while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
@@ -84,8 +130,10 @@ var abcContext
 function testEval (name, passed) {
   if (passed) {
     console.log(name + " test PASSED")
+    airbitzreacttest.state.content += name + ' test PASSED\n'
   } else {
     console.log(name + " test FAILED")
+    airbitzreacttest.state.content += name + ' test FAILED\n'
   }
   return passed
 }
@@ -102,6 +150,7 @@ function BeginTests()
 
 function allTestsPass() {
   console.log(`*** ALL TESTS PASSED ***`)
+  airbitzreacttest.state.content += '*** ALL TESTS PASSED ***\n'
   return true
 }
 
@@ -483,3 +532,4 @@ function accountCreateChangeOTPTest () {
 }
 
 module.exports.BeginTests = BeginTests
+module.exports.airbitzreacttest = airbitzreacttest
