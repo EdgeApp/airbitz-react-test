@@ -26,6 +26,8 @@ var otpAccountName = "otptest"
 var otpAccountPassword = "Test123456"
 var otpAccountOTPToken = "RFC3SA2TKX2RJM5F"
 
+var gAddContent
+
 // callbacks.abcAccountAccountChanged = abcAccountAccountChanged
 // callbacks.abcAccountWalletChanged = abcAccountWalletChanged
 // callbacks.abcAccountWalletsLoaded = abcAccountWalletsLoaded
@@ -67,30 +69,49 @@ const styles = StyleSheet.create({
   },
 });
 
+class airbitzreacttest extends Component {
+  render () {
+    return (
+      <AirbitzReact></AirbitzReact>
+    )
+  }
+}
 
-var airbitzreacttest = React.createClass({
+var AirbitzReact = React.createClass({
   getInitialState() {
-    content: ''
+    return {
+      content: 'Running Tests...\n'
+    }
   },
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Airbitz Core React Native Tests!
+          Welcome to Airbitz React Native Tests!
         </Text>
         <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
+          Android: Double tap R on your keyboard to reload,{'\n'}
           Shake or press menu button for dev menu
         </Text>
-        <text>
+        <Text style={styles.instructions}>
+          iOS: Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
+        </Text>
+        <Text style={styles.instructions}>
           {this.state.content}
-        </text>
+        </Text>
       </View>
     )
   },
   componentDidMount () {
+    gAddContent = this.addContent
     BeginTests()
+  },
+  addContent (content) {
+    var newContent = this.state.content + content
+    this.setState({content: newContent})
   }
+
 })
 
 
@@ -127,17 +148,6 @@ var abcAccount = dummyAccount
 var abcc = abc.ABCConditionCode
 var abcContext
 
-function testEval (name, passed) {
-  if (passed) {
-    console.log(name + " test PASSED")
-    airbitzreacttest.state.content += name + ' test PASSED\n'
-  } else {
-    console.log(name + " test FAILED")
-    airbitzreacttest.state.content += name + ' test FAILED\n'
-  }
-  return passed
-}
-
 function BeginTests()
 {
   myusername = "tester" + makeID()
@@ -150,20 +160,24 @@ function BeginTests()
 
 function allTestsPass() {
   console.log(`*** ALL TESTS PASSED ***`)
-  airbitzreacttest.state.content += '*** ALL TESTS PASSED ***\n'
+  gAddContent( '*** ALL TESTS PASSED ***\n' )
   return true
 }
 
 function testPass(funcname) {
   console.log(funcname + " PASSED")
+  gAddContent( funcname + " PASSED\n" )
   return true
 }
 
 function testFail(funcname, message) {
-  if (message)
+  if (message) {
     console.log(funcname + " FAILED. " + message)
-  else
+    gAddContent(funcname + " FAILED. " + message + "\n")
+  } else {
     console.log(funcname + " FAILED")
+    gAddContent(funcname + " FAILED\n")
+  }
 
   return false
 }
@@ -533,5 +547,4 @@ function accountCreateChangeOTPTest () {
   })
 }
 
-module.exports.BeginTests = BeginTests
 module.exports.airbitzreacttest = airbitzreacttest
