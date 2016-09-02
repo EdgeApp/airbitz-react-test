@@ -237,21 +237,23 @@ function oldAccountNewDeviceLoginTest () {
 }
 
 function oldAccountNewDevicePINLoginTest () {
-  return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
     var funcname = "oldAccountNewDevicePINLoginTest"
     abcContext.deleteLocalAccount(oldAccountName, function (error) {
       abcContext.loginWithPassword(oldAccountName, oldAccountPassword, "", callbacks, function (error, account) {
         if (error) reject(funcname)
         else {
           sleep(5000)
-          account.logout(() => {
-            abcContext.loginWithPIN(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
-              if (error) reject(funcname)
-              else {
-                account.logout(function () {
-                  resolve(funcname)
-                })
-              }
+          account.changePIN('1234', function (error) {
+            account.logout(() => {
+              abcContext.loginWithPIN(oldAccountName, oldAccountPIN, callbacks, function (error, account) {
+                if (error) reject(funcname)
+                else {
+                  account.logout(function () {
+                    resolve(funcname)
+                  })
+                }
+              })
             })
           })
         }
